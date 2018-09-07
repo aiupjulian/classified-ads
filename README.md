@@ -1,2 +1,6 @@
-# classified-ads-php
-Classified ads web application
+# Classified ads
+Classified ads web application.
+
+Made with:
+- PHP
+- MySQL
