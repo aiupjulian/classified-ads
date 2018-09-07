@@ -16,9 +16,11 @@ Add the following lines to this file:
         Require all granted
 </Directory>
 ```
+
 - /etc/apache2/sites-enabled
 
 In this folder create a file (for example with the name entornos.conf) and add the following lines
+
 Change YOUR_PROJECT_LOCATION with the folder of your project (for example for me this is `/home/julian/dev/classified-ads`)
 ```
 <VirtualHost *:80>
@@ -31,6 +33,7 @@ Change YOUR_PROJECT_LOCATION with the folder of your project (for example for me
 	CustomLog ${APACHE_LOG_DIR}/access.log combined
 </VirtualHost>
 ```
+
 - /etc/hosts
 Add right after localhost the domain
 ```
