@@ -1,42 +1,34 @@
+
 # Classified ads
 Classified ads web application.
-
-### Made with:
+## Made with:
 - PHP
 - MySQL
+## Folder structure:
+- **docs**
 
-### Folder structure:
-- docs
+	Documentation related to this project
+- **public**
 
-Here we put all documentation related to this project
+	Public folder of the web application
+- **resources**
 
-- public
-
-This is the public folder of the web application
-
-- resources
-
-Here we put the templates referenced from the public views, the layout, helper functions and config.
-
-#### After the following configuration, you will be able to access the web application with the following URL: classified-ads.test
-
-### Please modify the next files:
-- /etc/apache2/apache2.conf
-
+	Templates referenced from the public views, layout, helper functions and config.
+## Configuration:
+*After the following configuration, you will be able to access the web application with the following URL: classified-ads.test*
+### /etc/apache2/apache2.conf
 Add the following lines to this file:
 ```
 <Directory /home/julian/dev/classified-ads/>
-        Options Indexes FollowSymLinks
-        AllowOverride All
-        Require all granted
+	Options Indexes FollowSymLinks
+	AllowOverride All
+	Require all granted
 </Directory>
 ```
+### /etc/apache2/sites-enabled
+In this folder create a file (for example with the name entornos.conf) and add the following lines:
 
-- /etc/apache2/sites-enabled
-
-In this folder create a file (for example with the name entornos.conf) and add the following lines
-
-Change YOUR_PROJECT_PUBLIC_FOLDER_LOCATION with the public folder of your project (for example for me this is `/home/julian/dev/classified-ads/public`)
+*Change YOUR_PROJECT_PUBLIC_FOLDER_LOCATION with the public folder of your project (for example for me this is `/home/julian/dev/classified-ads/public`)*
 ```
 <VirtualHost *:80>
 	ServerName classified-ads.test
@@ -48,17 +40,8 @@ Change YOUR_PROJECT_PUBLIC_FOLDER_LOCATION with the public folder of your projec
 	CustomLog ${APACHE_LOG_DIR}/access.log combined
 </VirtualHost>
 ```
-
-- /etc/hosts
-
+### /etc/hosts
 Add right after localhost the domain
 ```
 127.0.0.1	localhost	classified-ads.test
-```
-
-- Run the following commands in terminal:
-
-```
-$ sudo a2enmod rewrite
-$ sudo service apache2 restart
 ```
