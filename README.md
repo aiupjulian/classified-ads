@@ -5,6 +5,19 @@ Classified ads web application.
 - PHP
 - MySQL
 
+### Folder structure:
+- docs
+
+Here we put all documentation related to this project
+
+- public
+
+This is the public folder of the web application
+
+- resources
+
+Here we put the templates referenced from the public views, the layout, helper functions and config.
+
 #### After the following configuration, you will be able to access the web application with the following URL: classified-ads.test
 
 ### Please modify the next files:
@@ -37,12 +50,14 @@ Change YOUR_PROJECT_PUBLIC_FOLDER_LOCATION with the public folder of your projec
 ```
 
 - /etc/hosts
+
 Add right after localhost the domain
 ```
 127.0.0.1	localhost	classified-ads.test
 ```
 
 - Run the following commands in terminal:
+
 ```
 $ sudo a2enmod rewrite
 $ sudo service apache2 restart
