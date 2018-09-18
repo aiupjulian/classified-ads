@@ -9,9 +9,9 @@
 */
 $config = array(
     "db" => array(
-        "dbname" => "database1",
-        "username" => "dbUser",
-        "password" => "pa$$",
+        "dbname" => "classified_ads",
+        "username" => "root",
+        "password" => "root",
         "host" => "localhost"
     ),
     "urls" => array(
