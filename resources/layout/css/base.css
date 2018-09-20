@@ -1,0 +1,21 @@
+html {
+    height: 100%;
+}
+
+body {
+    position: relative;
+    font-family: sans-serif;
+    min-height: 100%;
+    margin-top: calc(var(--header-height, 10vh) + 2vh);
+    padding-bottom: calc(var(--footer-height, 7vh) + 2vh);
+}
+
+.button {
+    background-color: var(--secondary-color);
+    border: 1px solid var(--secondary-color);
+    font-weight: bold;
+    color: #FFF;
+    border-radius: 4px;
+    padding: 1vh 2vw;
+    cursor: pointer;
+}

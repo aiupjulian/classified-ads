@@ -1,6 +1,5 @@
-<style><?php include 'footer.css'; ?></style>
 <div class="footer">
-    Footer content...
+    &#9400;2018 Classified Ads
 </div>
 </body>
 </html>

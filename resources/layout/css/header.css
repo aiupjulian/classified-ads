@@ -1,0 +1,31 @@
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: var(--primary-color);
+  display: flex;
+  justify-content: space-between;
+  height: var(--header-height, 10vh);
+  color: #000;
+}
+
+.header > .header-section {
+  padding: 0 2vw;
+  display: flex;
+  align-items: center;
+}
+
+.header-section > * {
+  margin: 0 1vw;
+}
+
+.header-section > input {
+  height: 4vh;
+  width: 20vw;
+}
+
+a {
+  color: #FFF;
+  text-decoration: none;
+}
