@@ -1,12 +1,16 @@
-<!-- Homepage content -->
-<h2>Home Page</h2>
+<h2>Welcome to Classified Ads!</h2>
 <?php
-    /*
-        Any variables passed in through the variables parameter in our renderLayoutWithContentPage() function
-        are available in here.
-    */
+    require_once(LIBRARY_PATH . "/databaseFunctions.php");
     echo $setInIndexDotPhp;
+    $link = connect();
+
+    if ($categoriesResult = mysqli_query($link, "SELECT * FROM category")) {
+        while($category = mysqli_fetch_array($categoriesResult, MYSQLI_ASSOC)) {
 ?>
-<p>A</p><p>A</p><p>A</p><p>A</p><p>A</p><p>A</p><p>A</p><p>A</p><p>A</p><p>A</p><p>A</p>
-<p>A</p><p>A</p><p>A</p><p>A</p><p>A</p><p>A</p><p>A</p><p>A</p><p>A</p><p>A</p><p>A</p>
-<p>A</p><p>A</p><p>A</p><p>A</p><p>A</p><p>A</p><p>A</p><p>A</p><p>A</p><p>A</p><p>A</p><p>A</p>
+                <div> <?php echo "Name :{$category['name']}  <br> " ?> </div>
+<?php
+        }
+        mysqli_free_result($categoriesResult);
+    }
+    close($link);
+?>
