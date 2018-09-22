@@ -2,7 +2,8 @@
 <?php
     require_once(LIBRARY_PATH . "/databaseFunctions.php");
     echo $setInIndexDotPhp;
-    $link = connect();
+    $link;
+    connect($link);
 
     if ($categoriesResult = mysqli_query($link, "SELECT * FROM category")) {
         while($category = mysqli_fetch_array($categoriesResult, MYSQLI_ASSOC)) {
