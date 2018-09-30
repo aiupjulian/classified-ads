@@ -4,10 +4,9 @@ html {
 
 body {
     position: relative;
-    font-family: sans-serif;
-    min-height: 100%;
-    margin-top: calc(var(--header-height, 10vh) + 2vh);
-    padding-bottom: calc(var(--footer-height, 7vh) + 2vh);
+    font-family: 'Roboto', sans-serif;
+    min-height: var(--content-min-height);
+    margin-top: var(--header-height);
 }
 
 .button {
@@ -18,4 +17,8 @@ body {
     border-radius: 4px;
     padding: 1vh 2vw;
     cursor: pointer;
+}
+
+.container {
+    padding: 5px 5vw calc(var(--footer-height) + 5px);
 }

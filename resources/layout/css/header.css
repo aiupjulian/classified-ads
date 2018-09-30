@@ -6,7 +6,7 @@
   background-color: var(--primary-color);
   display: flex;
   justify-content: space-between;
-  height: var(--header-height, 10vh);
+  height: var(--header-height);
   color: #000;
 }
 

@@ -16,8 +16,8 @@ function renderLayoutWithContentFile($contentFile, $variables = array()) {
 
     require_once(LAYOUT_PATH . "/header.php");
 
-    echo "<div id=\"container\">\n"
-       . "\t<div id=\"content\">\n";
+    echo "<div class=\"container\">\n"
+       . "\t<div class=\"content\">\n";
 
     if (file_exists($contentFileFullPath)) {
         require_once($contentFileFullPath);
