@@ -1,6 +1,7 @@
 <div class="hero-container">
     <div class="hero">
         <h2>Welcome to Classified Ads!</h2>
+        <h3>Where you can buy and sell everything</h3>
     </div>
 </div>
 <?php
