@@ -2,7 +2,8 @@
 require_once(realpath(dirname(__FILE__) . "/../config.php"));
 
 function renderLayoutWithContentFile($contentFile, $variables = array()) {
-    $contentFileFullPath = TEMPLATES_PATH . "/" . $contentFile;
+    $contentFileFullPath = TEMPLATES_PATH . "/" . $contentFile . ".php";
+    $styleFileFullPath = TEMPLATES_PATH . "/" . $contentFile . ".css";
 
     // making sure passed in variables are in scope of the template
     // each key in the $variables array will become a variable
@@ -20,6 +21,11 @@ function renderLayoutWithContentFile($contentFile, $variables = array()) {
        . "\t<div class=\"content\">\n";
 
     if (file_exists($contentFileFullPath)) {
+        if (file_exists($styleFileFullPath)) {
+            echo "<style>\n";
+            require_once($styleFileFullPath);
+            echo "</style>\n";
+        }
         require_once($contentFileFullPath);
     } else {
         require_once(TEMPLATES_PATH . "/error.php");

@@ -20,5 +20,5 @@ body {
 }
 
 .container {
-    padding: 5px 5vw calc(var(--footer-height) + 5px);
+    padding: var(--content-padding-top) 5vw calc(var(--footer-height) + 5px);
 }

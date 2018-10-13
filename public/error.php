@@ -9,5 +9,5 @@
         'setInErrorDotPhp' => $setInErrorDotPhp
     );
 
-    renderLayoutWithContentFile("error.php", $variables);
+    renderLayoutWithContentFile("error", $variables);
 ?>

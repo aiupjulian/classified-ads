@@ -1,0 +1,22 @@
+.container {
+    padding-top: 0;
+}
+
+.hero-container {
+    height: var(--hero-image-height);
+    margin: 0 0 5px;
+}
+
+.hero {
+    height: var(--hero-image-height);
+    background-image: url('images/hero.jpg');
+    background-repeat: no-repeat;
+    background-position: center 64%;
+    background-size: cover;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+}

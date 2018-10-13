@@ -1,4 +1,8 @@
-<h2>Welcome to Classified Ads!</h2>
+<div class="hero-container">
+    <div class="hero">
+        <h2>Welcome to Classified Ads!</h2>
+    </div>
+</div>
 <?php
     require_once(LIBRARY_PATH . "/databaseFunctions.php");
     echo $setInIndexDotPhp;
@@ -15,3 +19,8 @@
     }
     close($link);
 ?>
+
+<p>asdas</p><p>asdas</p><p>asdas</p><p>asdas</p><p>asdas</p>
+<p>asdas</p><p>asdas</p><p>asdas</p><p>asdas</p><p>asdas</p>
+<p>asdas</p><p>asdas</p><p>asdas</p><p>asdas</p><p>asdas</p>
+<p>asdas</p><p>asdas</p>
