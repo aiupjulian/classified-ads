@@ -45,3 +45,7 @@ Add right after localhost the domain
 ```
 127.0.0.1	localhost	classified-ads.test
 ```
+### Database
+Use the database.sql file in root folder.
+
+To dump the database, use the following command: `mysqldump -u root -p --databases classified_ads > database.sql`
