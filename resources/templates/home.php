@@ -4,24 +4,41 @@
         <h3>Where you can buy and sell everything</h3>
     </div>
 </div>
+<h3>Categories</h3>
+<div class="categories-list">
 <?php
     require_once(LIBRARY_PATH . "/databaseFunctions.php");
-    echo $setInIndexDotPhp;
     $link;
     connect($link);
 
     if ($categoriesResult = mysqli_query($link, "SELECT * FROM category")) {
         while($category = mysqli_fetch_array($categoriesResult, MYSQLI_ASSOC)) {
 ?>
-                <div> <?php echo "Name :{$category['name']}  <br> " ?> </div>
+            <div class="category">
+                <div class="category-title">
+                    <a href="list.php?category=<?php echo $category['name'] ?>">
+                        <?php echo $category['name'] ?>
+                    </a>
+                </div>
+<?php
+            if ($subcategoriesResult = mysqli_query($link, "SELECT * FROM subcategory WHERE subcategory.category_id = " . $category['id'])) {
+                while($subcategory = mysqli_fetch_array($subcategoriesResult, MYSQLI_ASSOC)) {
+?>
+                <div class="subcategory">
+                    <a href="list.php?subcategory=<?php echo $subcategory['name'] ?>">
+                        <?php echo $subcategory['name'] ?>
+                    </a>
+                </div>
+<?php
+                }
+                mysqli_free_result($subcategoriesResult);
+            }
+?>
+            </div>
 <?php
         }
         mysqli_free_result($categoriesResult);
     }
     close($link);
 ?>
-
-<p>asdas</p><p>asdas</p><p>asdas</p><p>asdas</p><p>asdas</p>
-<p>asdas</p><p>asdas</p><p>asdas</p><p>asdas</p><p>asdas</p>
-<p>asdas</p><p>asdas</p><p>asdas</p><p>asdas</p><p>asdas</p>
-<p>asdas</p><p>asdas</p>
+</div>
