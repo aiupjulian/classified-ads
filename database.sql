@@ -73,6 +73,34 @@ LOCK TABLES `subcategory` WRITE;
 INSERT INTO `subcategory` VALUES (1,'Cars',1),(2,'Car Parts & Accessories',1),(3,'Motorcycles',1),(5,'Houses & Flats for rent',2),(6,'Houses & Flats for sale',2),(7,'Land',2),(8,'Cell Phones',3),(9,'TV, Audio & Visual',3),(10,'Computers & Laptops',3),(11,'Furniture & Decor',4),(12,'Tools',4),(13,'Garden',4),(14,'Toys, Games & Remote Control',5),(15,'Musical Instruments',5),(16,'Outdoor & Sports Equipment',6),(17,'Bicycles',6),(18,'Gym & Fitness',6);
 /*!40000 ALTER TABLE `subcategory` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `user`
+--
+
+DROP TABLE IF EXISTS `user`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `user` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(15) NOT NULL,
+  `password` varchar(30) NOT NULL,
+  `phone` varchar(15) NOT NULL,
+  `email` varchar(20) NOT NULL,
+  `name` varchar(30) NOT NULL,
+  `admin` tinyint(1) DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `user`
+--
+
+LOCK TABLES `user` WRITE;
+/*!40000 ALTER TABLE `user` DISABLE KEYS */;
+/*!40000 ALTER TABLE `user` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -83,4 +111,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-10-21 19:42:57
+-- Dump completed on 2018-10-31 20:26:53
