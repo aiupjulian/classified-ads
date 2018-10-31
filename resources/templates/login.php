@@ -35,7 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <label for="password">Password:</label>
   <input type="password" name="password" />
   <button class="button">Submit</button>
+  <?php if (isset($error)) { ?>
+    <div style = "font-size:11px; color:#cc0000; margin-top:10px"><?php echo $error; ?></div>
+  <?php } ?>
 </form>
-<?php if (isset($error)) { ?>
-  <div style = "font-size:11px; color:#cc0000; margin-top:10px"><?php echo $error; ?></div>
-<?php } ?>

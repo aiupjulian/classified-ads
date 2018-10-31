@@ -30,6 +30,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       $error = "Error while trying to create user";
     }
   }
+  close($link);
 }
 ?>
 <h2 class="register-title">Register</h2>
@@ -45,7 +46,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <label for="email">Email:</label>
   <input type="email" name="email" maxlength="20" required>
   <button class="button">Register</button>
+  <?php if (isset($error)) { ?>
+    <div style = "font-size:11px; color:#cc0000; margin-top:10px"><?php echo $error; ?></div>
+  <?php } ?>
 </form>
-<?php if (isset($error)) { ?>
-  <div style = "font-size:11px; color:#cc0000; margin-top:10px"><?php echo $error; ?></div>
-<?php } ?>
