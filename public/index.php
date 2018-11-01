@@ -9,5 +9,5 @@
         'setInIndexDotPhp' => $setInIndexDotPhp
     );
 
-    renderLayoutWithContentFile("home", $variables);
+    renderLayoutWithContentFile("index", $variables);
 ?>

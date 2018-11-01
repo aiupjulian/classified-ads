@@ -45,6 +45,15 @@ Add right after localhost the domain
 ```
 127.0.0.1	localhost	classified-ads.test
 ```
+### Auto sessions
+Edit the file:
+```
+sudo gedit /etc/php/7.0/apache2/php.ini
+```
+And change this line:
+```
+session.auto_start = 1
+```
 ### Database
 Use the database.sql file in root folder.
 

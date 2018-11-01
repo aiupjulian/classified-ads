@@ -23,7 +23,12 @@
         <button class="button">Search</button>
     </div>
     <div class="header-section">
+      <?php if (isset($_SESSION['username'])) { ?>
+        <a href="profile.php">Profile</a>
+        <a href="logout.php">Logout</a>
+      <?php } else { ?>
         <a href="register.php">Register</a>
         <a href="login.php">Login</a>
+      <?php } ?>
     </div>
 </div>

@@ -1,5 +1,8 @@
 <?php
 unset($error);
+if(isset($_SESSION['username'])) {
+  header("location: welcome.php");
+}
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   require_once(LIBRARY_PATH . "/databaseFunctions.php");
@@ -23,6 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   } else {
     $query = "INSERT INTO user (username, password, name, phone, email) VALUES ('$username', '$hash', '$name', '$phone', '$email')";
     if (mysqli_query($link, $query)) {
+      $_SESSION['username'] = $username;
       header("location: welcome.php");
     } else {
       echo $query;
