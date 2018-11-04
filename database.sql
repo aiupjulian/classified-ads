@@ -24,6 +24,36 @@ CREATE DATABASE /*!32312 IF NOT EXISTS*/ `classified_ads` /*!40100 DEFAULT CHARA
 USE `classified_ads`;
 
 --
+-- Table structure for table `ad`
+--
+
+DROP TABLE IF EXISTS `ad`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `ad` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(15) NOT NULL,
+  `description` varchar(60) NOT NULL,
+  `price` int(11) NOT NULL,
+  `sold` tinyint(1) DEFAULT '0',
+  `date` date NOT NULL,
+  `user_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `user_id` (`user_id`),
+  CONSTRAINT `ad_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `ad`
+--
+
+LOCK TABLES `ad` WRITE;
+/*!40000 ALTER TABLE `ad` DISABLE KEYS */;
+/*!40000 ALTER TABLE `ad` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `category`
 --
 
@@ -90,7 +120,7 @@ CREATE TABLE `user` (
   `name` varchar(30) NOT NULL,
   `admin` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -99,6 +129,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
+INSERT INTO `user` VALUES (1,'aiupjulian','$2y$10$zRW89rbjsLggSlg8CghCUO1PKkNXxZMf5gnN/54bOpVK57JHGeqqW','156123456','aiupjulian@test.com','Julian Aiup',0),(2,'test','$2y$10$6jQX14yE4VSUL7l4JNU8neNVu8f7oVK/vNFrYN..sJOcwA2g8dPyK','test','test@test.com','test',0),(3,'test2','$2y$10$yd0dCmGzy1T.T4Twy5v6qe2t8HX8NkIQ4MxjqTVf9WqAXI4WjrVUa','test2','test2@test.com','test2',0);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -111,4 +142,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-10-31 20:26:53
+-- Dump completed on 2018-11-04 18:48:13
