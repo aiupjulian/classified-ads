@@ -27,6 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $query = "INSERT INTO user (username, password, name, phone, email) VALUES ('$username', '$hash', '$name', '$phone', '$email')";
     if (mysqli_query($link, $query)) {
       $_SESSION['username'] = $username;
+      $_SESSION['id'] = mysqli_insert_id($link);
       header("location: welcome.php");
     } else {
       echo $query;
