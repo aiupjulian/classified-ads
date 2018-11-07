@@ -8,22 +8,21 @@
     emails — Store debugging or admin emails to use when handling errors or in contact forms.
 */
 $config = array(
-    "db" => array(
-        "dbname" => "classified_ads",
-        "username" => "root",
-        "password" => "root",
-        "host" => "localhost"
-    ),
-    "urls" => array(
-        "baseUrl" => "http://classified-ads.test"
-    ),
-    "paths" => array(
-        "resources" => "/path/to/resources",
-        "images" => array(
-            "content" => $_SERVER["DOCUMENT_ROOT"] . "/images/content",
-            "layout" => $_SERVER["DOCUMENT_ROOT"] . "/images/layout"
-        )
+  "db" => array(
+    "dbname" => "classified_ads",
+    "username" => "root",
+    "password" => "root",
+    "host" => "localhost"
+  ),
+  "urls" => array(
+    "baseUrl" => "http://classified-ads.test"
+  ),
+  "paths" => array(
+    // "resources" => "/path/to/resources",
+    "images" => array(
+      "uploads" => realpath(dirname(__FILE__) . "/images"),
     )
+  )
 );
 
 /*
