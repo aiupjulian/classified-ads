@@ -19,7 +19,7 @@ Classified ads web application.
 ### /etc/apache2/apache2.conf
 Add the following lines to this file:
 ```
-<Directory /home/julian/dev/classified-ads/>
+<Directory YOUR_PROJECT_FOLDER_LOCATION>
 	Options Indexes FollowSymLinks
 	AllowOverride All
 	Require all granted
@@ -45,14 +45,22 @@ Add right after localhost the domain
 ```
 127.0.0.1	localhost	classified-ads.test
 ```
-### Auto sessions
+### php.ini config
+Create .php_tmp in root user folder
 Edit the file:
 ```
 sudo gedit /etc/php/7.0/apache2/php.ini
 ```
-And change this line:
+And change these lines:
 ```
 session.auto_start = 1
+upload_tmp_dir = /home/YOUR_USERNAME/.php_tmp
+```
+And run the following commands
+```
+usermod -a -G www-data YOUR_USERNAME
+sudo chgrp www-data /home/YOUR_USERNAME/.php_tmp/
+sudo chgrp www-data YOUR_PROJECT_FOLDER_LOCATION/resources/images/
 ```
 ### Database
 Use the database.sql file in root folder.
