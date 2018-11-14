@@ -85,9 +85,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </option>
       <?php } ?>
       </optgroup>
-    <?php } ?>
+    <?php
+    }
+    close($link);
+    ?>
   </select>
-
   <label for="subcategory">Subcategory:</label>
   <select name="subcategory">
     <?php
@@ -108,7 +110,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </option>
       <?php } ?>
       </optgroup>
-    <?php } ?>
+    <?php
+    }
+    close($link);
+    ?>
   </select>
   <label for="image">Image:</label>
   <input type="hidden" name="MAX_FILE_SIZE" value="2000000">

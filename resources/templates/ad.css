@@ -13,7 +13,7 @@
 
 .ad-details {
   width: 40%;
-  padding-right: 20px;
+  padding-left: 20px;
 }
 
 .ad-details > div {
@@ -26,4 +26,40 @@
 
 .ad-image > img {
   width: 100%;
+}
+
+.comments-title {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.comments-container {
+  border: 1px solid var(--primary-color);
+  border-radius: 10px;
+  padding: 40px;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
+.comments-list {
+
+}
+
+.comments-list > li {
+  list-style: none;
+  margin-bottom: 5px;
+}
+
+.comment-user-name {
+  font-weight: bold;
+}
+
+.comment-text {
+
+}
+
+.comment-date {
+  color: var(--grey);
 }
