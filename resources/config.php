@@ -20,7 +20,7 @@ $config = array(
   "paths" => array(
     // "resources" => "/path/to/resources",
     "images" => array(
-      "uploads" => realpath(dirname(__FILE__) . "/images"),
+      "uploads" => $_SERVER['DOCUMENT_ROOT'] . "/images/uploaded",
     )
   )
 );

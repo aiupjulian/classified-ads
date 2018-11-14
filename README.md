@@ -60,7 +60,7 @@ And run the following commands
 ```
 usermod -a -G www-data YOUR_USERNAME
 sudo chgrp www-data /home/YOUR_USERNAME/.php_tmp/
-sudo chgrp www-data YOUR_PROJECT_FOLDER_LOCATION/resources/images/
+sudo chgrp www-data YOUR_PROJECT_PUBLIC_FOLDER_LOCATION/images/uploaded
 ```
 ### Database
 Use the database.sql file in root folder.

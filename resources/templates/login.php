@@ -28,14 +28,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   }
 }
 ?>
-<h2 class="login-title">Login</h2>
-<form action="" method="post" class="login">
+<h2 class="form-title">Login</h2>
+<form action="" method="post" class="form">
   <label for="username">Username:</label>
   <input type="text" name="username" maxlength="15" required/>
   <label for="password">Password:</label>
   <input type="password" name="password" maxlength="30" required/>
   <button class="button">Submit</button>
   <?php if (isset($error)) { ?>
-    <div style = "font-size:11px; color:#cc0000; margin-top:10px"><?php echo $error; ?></div>
+    <div class="error"><?php echo $error; ?></div>
   <?php } ?>
 </form>

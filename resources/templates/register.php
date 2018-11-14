@@ -30,16 +30,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       $_SESSION['id'] = mysqli_insert_id($link);
       header("location: welcome.php");
     } else {
-      echo $query;
-      echo mysqli_error($link);
       $error = "Error while trying to create user";
     }
   }
   close($link);
 }
 ?>
-<h2 class="register-title">Register</h2>
-<form action="" method="post" class="register">
+<h2 class="form-title">Register</h2>
+<form action="" method="post" class="form">
   <label for="username">Username:</label>
   <input type="text" name="username" maxlength="15" required>
   <label for="password">Password:</label>
@@ -52,6 +50,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <input type="email" name="email" maxlength="20" required>
   <button class="button">Register</button>
   <?php if (isset($error)) { ?>
-    <div style = "font-size:11px; color:#cc0000; margin-top:10px"><?php echo $error; ?></div>
+    <div class="error"><?php echo $error; ?></div>
   <?php } ?>
 </form>

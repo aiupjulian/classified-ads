@@ -1,19 +1,14 @@
-.login-title {
+.ad-title {
   display: flex;
   justify-content: center;
 }
 
-.login {
+.ad-container {
   border: 1px solid var(--primary-color);
   border-radius: 10px;
-  width: 25%;
+  width: 90%;
   padding: 40px;
-  margin: 20px auto;
+  /* margin: 20px auto; */
   display: flex;
-  flex-direction: column;
   justify-content: space-between;
-}
-
-.login > input {
-  margin-bottom: 10px;
 }
