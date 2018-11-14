@@ -1,12 +1,12 @@
 <?php
 require_once(realpath(dirname(__FILE__) . "/../config.php"));
+require_once(LIBRARY_PATH . "/databaseFunctions.php");
 unset($error);
 if (!isset($_SESSION['username'])) {
   header('location: index.php');
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  require_once(LIBRARY_PATH . "/databaseFunctions.php");
   $link;
   connect($link);
 
@@ -14,6 +14,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $name = mysqli_real_escape_string($link, $_POST['name']);
   $description = mysqli_real_escape_string($link, $_POST['description']);
   $price = mysqli_real_escape_string($link, $_POST['price']);
+  $city_id = mysqli_real_escape_string($link, $_POST['city']);
+  $subcategory_id = mysqli_real_escape_string($link, $_POST['subcategory']);
   // calculate current date
   $date_array = getdate();
   $date = $date_array['year'] . "-" . $date_array['mon'] . "-" . $date_array['mday'];
@@ -40,7 +42,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $image_path = sha1_file($file_tmp) . $date . $date_array['seconds'] . "." . $file_ext;
     $path_to_upload = $config["paths"]["images"]["uploads"] . "/" . $image_path;
     if (move_uploaded_file($file_tmp, $path_to_upload)) {
-      $query = "INSERT INTO ad (name, description, price, date, user_id, image) VALUES ('$name', '$description', '$price', '$date', '$user_id', '$image_path')";
+      $query = "INSERT INTO ad (name, description, price, date, user_id, image, city_id, subcategory_id)"
+        . "VALUES ('$name', '$description', '$price', '$date', '$user_id', '$image_path', '$city_id', '$subcategory_id')";
       if (mysqli_query($link, $query)) {
         $ad_id = mysqli_insert_id($link);
         header("location: ad.php?id=" . $ad_id);
@@ -62,6 +65,51 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <input type="text" name="description" maxlength="60" required>
   <label for="price">Price:</label>
   <input type="number" name="price" maxlength="11" required>
+  <label for="city">City:</label>
+  <select name="city">
+    <?php
+    $link;
+    connect($link);
+    $statesQuery = "SELECT * FROM state";
+    $statesResult = mysqli_query($link, $statesQuery);
+    while ($state = mysqli_fetch_array($statesResult, MYSQLI_ASSOC)) {
+    ?>
+      <optgroup label="<?php echo $state['name']; ?>">
+      <?php
+      $citiesQuery = "SELECT * FROM city where state_id=" . $state['id'];
+      $citiesResult = mysqli_query($link, $citiesQuery);
+      while ($city = mysqli_fetch_array($citiesResult, MYSQLI_ASSOC)) {
+      ?>
+        <option value=<?php echo $city['id']; ?>>
+          <?php echo $city['name'] ?>
+        </option>
+      <?php } ?>
+      </optgroup>
+    <?php } ?>
+  </select>
+
+  <label for="subcategory">Subcategory:</label>
+  <select name="subcategory">
+    <?php
+    $link;
+    connect($link);
+    $categoryQuery = "SELECT * FROM category";
+    $categoryResult = mysqli_query($link, $categoryQuery);
+    while ($category = mysqli_fetch_array($categoryResult, MYSQLI_ASSOC)) {
+    ?>
+      <optgroup label="<?php echo $category['name']; ?>">
+      <?php
+      $subcategoriesQuery = "SELECT * FROM subcategory where category_id=" . $category['id'];
+      $subcategoriesResult = mysqli_query($link, $subcategoriesQuery);
+      while ($subcategory = mysqli_fetch_array($subcategoriesResult, MYSQLI_ASSOC)) {
+      ?>
+        <option value=<?php echo $subcategory['id']; ?>>
+          <?php echo $subcategory['name'] ?>
+        </option>
+      <?php } ?>
+      </optgroup>
+    <?php } ?>
+  </select>
   <label for="image">Image:</label>
   <input type="hidden" name="MAX_FILE_SIZE" value="2000000">
   <input type="file" name="image" accept="image/png, image/jpeg">
