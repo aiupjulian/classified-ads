@@ -32,23 +32,23 @@ if ($count == 1) {
   mysqli_free_result($adResult);
   close($link);
 } else {
-  // header("location: error.php");
+  header("location: error.php");
 }
 ?>
 <h2 class="ad-title"><?php echo $name; ?></h2>
 <div class="ad-container">
-  <div>
-    <div>Description: <?php echo $description; ?></div>
-    <div>Price: <?php echo $price; ?></div>
-    <div>Date: <?php echo $date; ?></div>
-    <div>Username: <?php echo $user_name; ?></div>
-    <div>Sold: <?php echo $sold; ?></div>
-    <div>State: <?php echo $state; ?></div>
-    <div>City: <?php echo $city; ?></div>
-    <div>Category: <?php echo $category; ?></div>
-    <div>Subcategory: <?php echo $subcategory; ?></div>
+  <div class="ad-details">
+    <div><b>Description:</b> <?php echo $description; ?></div>
+    <div><b>Price:</b> $<?php echo $price; ?></div>
+    <div><b>Date posted:</b> <?php echo $date; ?></div>
+    <div><b>Username:</b> <?php echo $user_name; ?></div>
+    <div><b>Sold:</b> <?php echo $sold; ?></div>
+    <div><b>State:</b> <?php echo $state; ?></div>
+    <div><b>City:</b> <?php echo $city; ?></div>
+    <div><b>Category:</b> <?php echo $category; ?></div>
+    <div><b>Subcategory:</b> <?php echo $subcategory; ?></div>
   </div>
-  <div>
+  <div class="ad-image">
     <img src="<?php echo "images/uploaded/" . $image; ?>" />
   </div>
 </div>

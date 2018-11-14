@@ -6,9 +6,24 @@
 .ad-container {
   border: 1px solid var(--primary-color);
   border-radius: 10px;
-  width: 90%;
   padding: 40px;
-  /* margin: 20px auto; */
   display: flex;
   justify-content: space-between;
+}
+
+.ad-details {
+  width: 40%;
+  padding-right: 20px;
+}
+
+.ad-details > div {
+  margin-bottom: 5px;
+}
+
+.ad-image {
+  width: 60%;
+}
+
+.ad-image > img {
+  width: 100%;
 }
