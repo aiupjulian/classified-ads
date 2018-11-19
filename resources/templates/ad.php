@@ -78,13 +78,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div><b>Description:</b> <?php echo $description; ?></div>
     <div><b>City:</b> <?php echo $city; ?>, <?php echo $state; ?></div>
     <div><b>Date posted:</b> <?php echo $date; ?></div>
-
     <div><b>Username:</b> <?php echo $ad_user_name; ?></div>
     <div><b>Phone:</b> <?php echo $ad_user_phone; ?></div>
-
     <div><b>Sold:</b> <?php echo $sold; ?></div>
-
-
   </div>
 </div>
 <h2 class="comments-title">Comments</h2>
@@ -99,7 +95,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     while ($comment = mysqli_fetch_array($commentsResult, MYSQLI_ASSOC)) {
     ?>
       <li>
-        <span class="comment-user-name"><?php echo $comment['user_name']; ?>:</span>
+        <span class="comment-user-name <?php if($ad_user_name === $comment['user_name']) { echo 'comment-ad-owner'; } ?>">
+          <?php echo $comment['user_name']; ?>:
+        </span>
         <span class="comment-text">"<?php echo $comment['text']; ?>"</span>
         <span class="comment-date"><?php echo $comment['date']; ?></span>
       </li>
