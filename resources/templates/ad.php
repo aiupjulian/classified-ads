@@ -5,7 +5,7 @@ connect($link);
 
 $ad_id = mysqli_real_escape_string($link, $_GET['id']);
 
-$query = "SELECT ad.*, user.phone AS user_phone, user.name AS user_name, city.name AS city_name,"
+$query = "SELECT ad.*, user.username AS user_username, user.email AS user_email, user.phone AS user_phone, user.name AS user_name, city.name AS city_name,"
   . " state.name AS state_name, subcategory.name AS subcategory_name, category.name AS category_name"
   . " FROM ad INNER JOIN user ON ad.user_id = user.id"
   . " INNER JOIN city ON ad.city_id = city.id"
@@ -21,8 +21,10 @@ if ($count == 1) {
   $description = $ad['description'];
   $price = $ad['price'];
   $date = $ad['date'];
+  $ad_user_username = $ad['user_username'];
   $ad_user_name = $ad['user_name'];
   $ad_user_phone = $ad['user_phone'];
+  $ad_user_email = $ad['user_email'];
   $image = $ad['image'];
   $sold = $ad['sold'];
   $state = $ad['state_name'];
@@ -48,19 +50,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   // user_id from session
   $user_id = $_SESSION['id'];
 
-  // validations
-  // if () {
-  //    $error = '';
-  // } else if () {
-  //    $error = '';
-  // }
-
-  if (!isset($error)) {
-    $query = "INSERT INTO comment (ad_id, user_id, text, date) VALUES ('$ad_id', '$user_id', '$text', '$date')";
-    if (!mysqli_query($link, $query)) {
-      $error = "Error while trying to create comment.";
-      // $ad_id = mysqli_insert_id($link);
-      // header("location: ad.php?id=" . $ad_id);
+  if (isset($_POST['email'])) {
+    // validations
+    // if () {
+    //    $email_error = '';
+    // } else if () {
+    //    $email_error = '';
+    // }
+    if (!isset($email_error)) {
+      $message = $name . '\r\n' . $text . '\r\n' . $_SESSION['username'] . ' - ' . $date . '\r\n' . $_SESSION['email'];
+      $message = wordwrap($message, 70, "\r\n");
+      if (!mail($ad_user_email, 'User ' .  $_SESSION['username'] . 'offered in ' . $name, $message)) {
+        $email_error = "Error while trying to send email.";
+      }
+    }
+  } else if (isset($_POST['comment'])) {
+    // validations
+    // if () {
+    //    $comment_error = '';
+    // } else if () {
+    //    $comment_error = '';
+    // }
+    if (!isset($comment_error)) {
+      $query = "INSERT INTO comment (ad_id, user_id, text, date) VALUES ('$ad_id', '$user_id', '$text', '$date')";
+      if (!mysqli_query($link, $query)) {
+        $comment_error = "Error while trying to create comment.";
+      }
     }
   }
   close($link);
@@ -80,7 +95,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div><b>Date posted:</b> <?php echo $date; ?></div>
     <div><b>Username:</b> <?php echo $ad_user_name; ?></div>
     <div><b>Phone:</b> <?php echo $ad_user_phone; ?></div>
-    <div><b>Sold:</b> <?php echo $sold; ?></div>
+    <?php if (!$sold && isset($_SESSION['username']) && $_SESSION['username'] !== $ad_user_username) { ?>
+      <form action="" method="post" class="form">
+        <input type="hidden" name="email" />
+        <label for="text">Text:</label>
+        <textarea type="text" name="text" rows="5" cols="30" maxlength="200" required>Make an offer</textarea>
+        <button class="button">Submit</button>
+        <?php if (isset($email_error)) { ?>
+          <div class="error"><?php echo $email_error; ?></div>
+        <?php } ?>
+      </form>
+    <?php } ?>
   </div>
 </div>
 <h2 class="comments-title">Comments</h2>
@@ -108,11 +133,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   </ul>
   <?php if (isset($_SESSION['username'])) { ?>
     <form action="" method="post" class="form">
+      <input type="hidden" name="comment" />
       <label for="text">Text:</label>
-      <input type="text" name="text" maxlength="200" required/>
+      <textarea type="text" name="text" rows="5" cols="30" maxlength="200" required>Send a comment</textarea>
       <button class="button">Submit</button>
-      <?php if (isset($error)) { ?>
-        <div class="error"><?php echo $error; ?></div>
+      <?php if (isset($comment_error)) { ?>
+        <div class="error"><?php echo $comment_error; ?></div>
       <?php } ?>
     </form>
   <?php } ?>

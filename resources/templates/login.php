@@ -20,6 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   if ($count == 1 && password_verify($password, $user["password"])) {
     $_SESSION['username'] = $username;
     $_SESSION['id'] = $user["id"];
+    $_SESSION['email'] = $user["email"];
     mysqli_free_result($userResult);
     close($link);
     header("location: welcome.php");

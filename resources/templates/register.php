@@ -28,6 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (mysqli_query($link, $query)) {
       $_SESSION['username'] = $username;
       $_SESSION['id'] = mysqli_insert_id($link);
+      $_SESSION['email'] = $email;
       header("location: welcome.php");
     } else {
       $error = "Error while trying to create user";
