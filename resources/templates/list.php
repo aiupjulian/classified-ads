@@ -31,13 +31,16 @@ if (isset($_GET["subcategory"])) {
     ?>
       <li>
         <a href="<?php echo "/ad.php?id=" . $ad['id'] ?>">
-          <span class="ad-name"><?php echo $ad['name']; ?></span>
-          <span class="ad-user-name">
-            By: <?php echo $ad['user_name']; ?>
-          </span>
-          <span class="ad-price">$<?php echo $ad['price']; ?></span>
-          <span class="ad-date"><?php echo $ad['date']; ?></span>
-        </a>
+            <img src="<?php echo "images/uploaded/" . $ad['image']; ?>" />
+            <div class="ad-container">
+              <div class="ad-name"><?php echo $ad['name']; ?></div>
+              <div class="ad-user-name">
+                By: <?php echo $ad['user_name']; ?>
+              </div>
+              <div class="ad-price">$<?php echo $ad['price']; ?></div>
+              <div class="ad-date"><?php echo $ad['date']; ?></div>
+            </div>
+          </a>
       </li>
     <?php
     }

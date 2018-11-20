@@ -39,6 +39,16 @@
   border-radius: 10px;
 }
 
+.ads-list > li > a > img {
+  height: 100px;
+}
+
+.ad-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
 .ads-list a {
   color: black;
 }
