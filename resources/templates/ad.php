@@ -87,10 +87,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <img src="<?php echo "images/uploaded/" . $image; ?>" />
   </div>
   <div class="ad-details">
-    <div>$<?php echo $price; ?></div>
+    <div><b>Description:</b> <?php echo $description; ?></div>
+    <div><b>Price:</b> $<?php echo $price; ?></div>
     <div><b>Category:</b> <?php echo $category; ?></div>
     <div><b>Subcategory:</b> <?php echo $subcategory; ?></div>
-    <div><b>Description:</b> <?php echo $description; ?></div>
     <div><b>City:</b> <?php echo $city; ?>, <?php echo $state; ?></div>
     <div><b>Date posted:</b> <?php echo $date; ?></div>
     <div><b>Username:</b> <?php echo $ad_user_name; ?></div>

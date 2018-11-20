@@ -14,6 +14,9 @@
 .ad-details {
   width: 40%;
   padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .ad-details > div {
