@@ -4,7 +4,9 @@
         <h3>Where you can buy and sell everything</h3>
     </div>
 </div>
-<h3>Categories</h3>
+<div class="categories-title">
+    <h3>Categories</h3><a href="/list.php">See All</a>
+</div>
 <div class="categories-list">
 <?php
     require_once(LIBRARY_PATH . "/databaseFunctions.php");
