@@ -1,0 +1,48 @@
+.list-container {
+  display: flex;
+}
+
+.filters {
+  border: 1px solid var(--primary-color);
+  border-radius: 10px;
+  width: 20%;
+  padding: 40px;
+  margin: 20px auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.ads-list {
+  border: 1px solid var(--primary-color);
+  border-radius: 10px;
+  width: 60%;
+  padding: 40px;
+  margin: 20px auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.ads-list > li {
+  width: 100%;
+  list-style: none;
+  margin-bottom: 30px;
+}
+
+.ads-list > li > a {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  padding: 10px;
+  border: 1px solid var(--primary-color);
+  border-radius: 10px;
+}
+
+.ads-list a {
+  color: black;
+}
+
+.ads-list a:hover {
+  background-color: green;
+}
