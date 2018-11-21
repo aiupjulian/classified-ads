@@ -48,7 +48,7 @@ CREATE TABLE `ad` (
   CONSTRAINT `ad_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE,
   CONSTRAINT `ad_ibfk_2` FOREIGN KEY (`subcategory_id`) REFERENCES `subcategory` (`id`),
   CONSTRAINT `ad_ibfk_3` FOREIGN KEY (`city_id`) REFERENCES `city` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -57,7 +57,7 @@ CREATE TABLE `ad` (
 
 LOCK TABLES `ad` WRITE;
 /*!40000 ALTER TABLE `ad` DISABLE KEYS */;
-INSERT INTO `ad` VALUES (1,'Grey Owl','Beautiful grey owl',10000,0,'2018-11-14',2,'cff5cd6cdd98d4b4f95fd7d395331d549a6fb2512018-11-1458.jpg',13,1);
+INSERT INTO `ad` VALUES (1,'Grey Owl','Beautiful grey owl',10000,0,'2018-11-14',2,'cff5cd6cdd98d4b4f95fd7d395331d549a6fb2512018-11-1458.jpg',13,1),(2,'VW Gol','New 2018 VW Gol',250000,0,'2018-11-19',5,'fad3322276a10198d6d6e5a3158eb310815be9162018-11-1948.jpg',1,4);
 /*!40000 ALTER TABLE `ad` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -130,7 +130,7 @@ CREATE TABLE `comment` (
   KEY `user_id` (`user_id`),
   CONSTRAINT `comment_ibfk_1` FOREIGN KEY (`ad_id`) REFERENCES `ad` (`id`),
   CONSTRAINT `comment_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -139,6 +139,7 @@ CREATE TABLE `comment` (
 
 LOCK TABLES `comment` WRITE;
 /*!40000 ALTER TABLE `comment` DISABLE KEYS */;
+INSERT INTO `comment` VALUES (1,1,2,'Hello! This is my Ad!','2018-11-14'),(2,1,2,'Hello! This is my Ad!','2018-11-14'),(3,1,3,'Hello! Is this owl real?','2018-11-14'),(4,1,3,'Make an offer','2018-11-19'),(5,1,3,'Make an offer','2018-11-19'),(6,1,3,'Make an offer','2018-11-19'),(7,1,3,'Make an offer','2018-11-19'),(8,1,3,'Make an offer','2018-11-19'),(9,1,3,'Make an offer','2018-11-19'),(10,1,3,'Make an offer','2018-11-19'),(11,1,3,'Make an offer','2018-11-19'),(12,1,3,'Make an offer','2018-11-19'),(13,1,3,'Make an offer','2018-11-19'),(14,1,3,'Make an offer','2018-11-19'),(15,1,3,'Make an offer','2018-11-19'),(16,1,3,'Make an offer','2018-11-19');
 /*!40000 ALTER TABLE `comment` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -209,7 +210,7 @@ CREATE TABLE `user` (
   `name` varchar(30) NOT NULL,
   `admin` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -218,7 +219,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'aiupjulian','$2y$10$zRW89rbjsLggSlg8CghCUO1PKkNXxZMf5gnN/54bOpVK57JHGeqqW','156123456','aiupjulian@test.com','Julian Aiup',0),(2,'test','$2y$10$6jQX14yE4VSUL7l4JNU8neNVu8f7oVK/vNFrYN..sJOcwA2g8dPyK','test','test@test.com','test',0),(3,'test2','$2y$10$yd0dCmGzy1T.T4Twy5v6qe2t8HX8NkIQ4MxjqTVf9WqAXI4WjrVUa','test2','test2@test.com','test2',0),(4,'test3','$2y$10$cOI4F5EmdtkTSnzyDI9TZOxc1vbV.GZCBfezEIxXXyr7gZw30KFpi','test3','test3@test.com','test3',0);
+INSERT INTO `user` VALUES (1,'aiupjulian','$2y$10$zRW89rbjsLggSlg8CghCUO1PKkNXxZMf5gnN/54bOpVK57JHGeqqW','156123456','aiupjulian@test.com','Julian Aiup',0),(2,'test','$2y$10$6jQX14yE4VSUL7l4JNU8neNVu8f7oVK/vNFrYN..sJOcwA2g8dPyK','test','test@test.com','test',0),(3,'test2','$2y$10$yd0dCmGzy1T.T4Twy5v6qe2t8HX8NkIQ4MxjqTVf9WqAXI4WjrVUa','test2','test2@test.com','test2',0),(4,'test3','$2y$10$cOI4F5EmdtkTSnzyDI9TZOxc1vbV.GZCBfezEIxXXyr7gZw30KFpi','test3','test3@test.com','test3',0),(5,'julianaiup','$2y$10$EtIChsb.meSlZhK3LdUDJudKPsyJL1WQNN.SJiYVnluVNwDlBxp72','03415661166','julianaiup@yahoo.com','Julian Aiup',0);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -231,4 +232,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-11-14  2:12:34
+-- Dump completed on 2018-11-21  0:45:36
