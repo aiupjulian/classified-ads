@@ -13,6 +13,10 @@
   justify-content: space-between;
 }
 
+.filters > * {
+  margin-bottom: 10px;
+}
+
 .ads-list {
   border: 1px solid var(--primary-color);
   border-radius: 10px;

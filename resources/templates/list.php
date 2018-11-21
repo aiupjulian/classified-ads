@@ -4,17 +4,21 @@ $link;
 connect($link);
 
 $conditions = array();
-if (isset($_GET["name"])) {
+if (!empty($_GET["name"])) {
   $conditions[] = "ad.name LIKE '%" . mysqli_real_escape_string($link, $_GET["name"]) . "%'";
 }
-if (isset($_GET["subcategory"])) {
+if (!empty($_GET["subcategory"])) {
   $conditions[] = "subcategory_id=" . mysqli_real_escape_string($link, $_GET["subcategory"]);
 }
-if (isset($_GET["city"])) {
+if (!empty($_GET["city"])) {
   $conditions[] = "city_id=" . mysqli_real_escape_string($link, $_GET["city"]);
 }
-if (isset($_GET["price1"]) && isset($_GET["price2"])) {
+if (!empty($_GET["price1"]) && !empty($_GET["price2"])) {
   $conditions[] = "price BETWEEN " . mysqli_real_escape_string($link, $_GET["price1"]) . " AND " . mysqli_real_escape_string($link, $_GET["price2"]);
+} else if (!empty($_GET["price1"])) {
+  $conditions[] = "price>=" . mysqli_real_escape_string($link, $_GET["price1"]);
+} else if (!empty($_GET["price2"])) {
+  $conditions[] = "price<=" . mysqli_real_escape_string($link, $_GET["price2"]);
 }
 
 $query = "SELECT ad.*, user.name AS user_name FROM ad INNER JOIN user ON ad.user_id=user.id";
@@ -25,14 +29,62 @@ $adsResult = mysqli_query($link, $query);
 ?>
 <h2 class="form-title">List</h2>
 <div class="list-container">
-  <div class="filters">
-    <div>Word</div>
-    <div>Category</div>
-    <div>Subcategory</div>
-    <div>Price</div>
-    <div>State</div>
-    <div>City</div>
-  </div>
+  <form action="" method="get" class="filters">
+    <label for="name">Name:</label>
+    <input type="text" name="name" maxlength="15">
+    <fieldset>
+      <legend>Price:</legend>
+      <input type="number" name="price1" maxlength="11" placeholder="From">
+      <input type="number" name="price2" maxlength="11" placeholder="To">
+    </fieldset>
+    <label for="city">City:</label>
+    <select name="city">
+      <option disabled selected value>Select a city</option>
+      <?php
+      $statesQuery = "SELECT * FROM state";
+      $statesResult = mysqli_query($link, $statesQuery);
+      while ($state = mysqli_fetch_array($statesResult, MYSQLI_ASSOC)) {
+      ?>
+        <optgroup label="<?php echo $state['name']; ?>">
+        <?php
+        $citiesQuery = "SELECT * FROM city where state_id=" . $state['id'];
+        $citiesResult = mysqli_query($link, $citiesQuery);
+        while ($city = mysqli_fetch_array($citiesResult, MYSQLI_ASSOC)) {
+        ?>
+          <option value=<?php echo $city['id']; ?>>
+            <?php echo $city['name'] ?>
+          </option>
+        <?php } ?>
+        </optgroup>
+      <?php
+      }
+      ?>
+    </select>
+    <label for="subcategory">Subcategory:</label>
+    <select name="subcategory">
+      <option disabled selected value>Select a subcategory</option>
+      <?php
+      $categoryQuery = "SELECT * FROM category";
+      $categoryResult = mysqli_query($link, $categoryQuery);
+      while ($category = mysqli_fetch_array($categoryResult, MYSQLI_ASSOC)) {
+      ?>
+        <optgroup label="<?php echo $category['name']; ?>">
+        <?php
+        $subcategoriesQuery = "SELECT * FROM subcategory where category_id=" . $category['id'];
+        $subcategoriesResult = mysqli_query($link, $subcategoriesQuery);
+        while ($subcategory = mysqli_fetch_array($subcategoriesResult, MYSQLI_ASSOC)) {
+        ?>
+          <option value=<?php echo $subcategory['id']; ?>>
+            <?php echo $subcategory['name'] ?>
+          </option>
+        <?php } ?>
+        </optgroup>
+      <?php
+      }
+      ?>
+    </select>
+    <button class="button">Submit</button>
+  </form>
   <ul class="ads-list">
     <?php
     while ($ad = mysqli_fetch_array($adsResult, MYSQLI_ASSOC)) {
