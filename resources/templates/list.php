@@ -5,7 +5,7 @@ connect($link);
 
 $conditions = array();
 if (isset($_GET["name"])) {
-  $conditions[] = "name LIKE %" . mysqli_real_escape_string($link, $_GET["name"]) . "%";
+  $conditions[] = "ad.name LIKE '%" . mysqli_real_escape_string($link, $_GET["name"]) . "%'";
 }
 if (isset($_GET["subcategory"])) {
   $conditions[] = "subcategory_id=" . mysqli_real_escape_string($link, $_GET["subcategory"]);
@@ -13,7 +13,7 @@ if (isset($_GET["subcategory"])) {
 if (isset($_GET["city"])) {
   $conditions[] = "city_id=" . mysqli_real_escape_string($link, $_GET["city"]);
 }
-if (isset($_GET["price"])) {
+if (isset($_GET["price1"]) && isset($_GET["price2"])) {
   $conditions[] = "price BETWEEN " . mysqli_real_escape_string($link, $_GET["price1"]) . " AND " . mysqli_real_escape_string($link, $_GET["price2"]);
 }
 
@@ -39,16 +39,16 @@ $adsResult = mysqli_query($link, $query);
     ?>
       <li>
         <a href="<?php echo "/ad.php?id=" . $ad['id'] ?>">
-            <img src="<?php echo "images/uploaded/" . $ad['image']; ?>" />
-            <div class="ad-container">
-              <div class="ad-name"><?php echo $ad['name']; ?></div>
-              <div class="ad-user-name">
-                By: <?php echo $ad['user_name']; ?>
-              </div>
-              <div class="ad-price">$<?php echo $ad['price']; ?></div>
-              <div class="ad-date"><?php echo $ad['date']; ?></div>
+          <img src="<?php echo "images/uploaded/" . $ad['image']; ?>" />
+          <div class="ad-container">
+            <div class="ad-name"><?php echo $ad['name']; ?></div>
+            <div class="ad-user-name">
+              By: <?php echo $ad['user_name']; ?>
             </div>
-          </a>
+            <div class="ad-price">$<?php echo $ad['price']; ?></div>
+            <div class="ad-date"><?php echo $ad['date']; ?></div>
+          </div>
+        </a>
       </li>
     <?php
     }

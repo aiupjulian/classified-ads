@@ -18,10 +18,10 @@
     <div class="header-section">
         <a href="index.php"><h1>Classified Ads</h1></a>
     </div>
-    <div class="header-section">
-        <input placeholder="What are you looking for?"/>
+    <form action="/list.php" method="get" class="header-section">
+        <input type="text" name="name" maxlength="15" required placeholder="What are you looking for?"/>
         <button class="button">Search</button>
-    </div>
+    </form>
     <div class="header-section">
       <?php if (isset($_SESSION['username'])) { ?>
         <a href="sell.php">Sell</a>
