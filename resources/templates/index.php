@@ -18,16 +18,14 @@
 ?>
             <div class="category">
                 <div class="category-title">
-                    <a href="list.php?category=<?php echo $category['name'] ?>">
-                        <?php echo $category['name'] ?>
-                    </a>
+                    <?php echo $category['name'] ?>
                 </div>
 <?php
             if ($subcategoriesResult = mysqli_query($link, "SELECT * FROM subcategory WHERE subcategory.category_id = " . $category['id'])) {
                 while($subcategory = mysqli_fetch_array($subcategoriesResult, MYSQLI_ASSOC)) {
 ?>
                 <div class="subcategory">
-                    <a href="list.php?subcategory=<?php echo $subcategory['name'] ?>">
+                    <a href="list.php?subcategory=<?php echo $subcategory['id'] ?>">
                         <?php echo $subcategory['name'] ?>
                     </a>
                 </div>

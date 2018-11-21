@@ -2,13 +2,26 @@
 require_once(LIBRARY_PATH . "/databaseFunctions.php");
 $link;
 connect($link);
-if (isset($_GET["category"])) {
-  $category = $_GET["category"];
+
+$conditions = array();
+if (isset($_GET["name"])) {
+  $conditions[] = "name LIKE %" . mysqli_real_escape_string($link, $_GET["name"]) . "%";
 }
 if (isset($_GET["subcategory"])) {
-  echo $_GET["subcategory"];
+  $conditions[] = "subcategory_id=" . mysqli_real_escape_string($link, $_GET["subcategory"]);
+}
+if (isset($_GET["city"])) {
+  $conditions[] = "city_id=" . mysqli_real_escape_string($link, $_GET["city"]);
+}
+if (isset($_GET["price"])) {
+  $conditions[] = "price BETWEEN " . mysqli_real_escape_string($link, $_GET["price1"]) . " AND " . mysqli_real_escape_string($link, $_GET["price2"]);
 }
 
+$query = "SELECT ad.*, user.name AS user_name FROM ad INNER JOIN user ON ad.user_id=user.id";
+if (count($conditions) > 0) {
+  $query .= " WHERE " . implode(" AND ", $conditions);
+}
+$adsResult = mysqli_query($link, $query);
 ?>
 <h2 class="form-title">List</h2>
 <div class="list-container">
@@ -22,11 +35,6 @@ if (isset($_GET["subcategory"])) {
   </div>
   <ul class="ads-list">
     <?php
-    $link;
-    connect($link);
-    $adsQuery = "SELECT ad.*, user.name AS user_name"
-      . " FROM ad INNER JOIN user ON ad.user_id=user.id";
-    $adsResult = mysqli_query($link, $adsQuery);
     while ($ad = mysqli_fetch_array($adsResult, MYSQLI_ASSOC)) {
     ?>
       <li>
