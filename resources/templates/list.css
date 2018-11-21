@@ -17,7 +17,7 @@
   margin-bottom: 10px;
 }
 
-.ads-list {
+.ads-container {
   border: 1px solid var(--primary-color);
   border-radius: 10px;
   width: 60%;
@@ -53,10 +53,19 @@
   justify-content: space-between;
 }
 
-.ads-list a {
+.ads-container a {
   color: black;
 }
 
-.ads-list a:hover {
+.ads-container a:hover {
   background-color: green;
+}
+
+.ads-pagination {
+  display: flex;
+  justify-content: center;
+}
+
+.ads-pagination > * {
+  margin-right: 10px;
 }

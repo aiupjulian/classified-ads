@@ -21,10 +21,22 @@ if (!empty($_GET["price1"]) && !empty($_GET["price2"])) {
   $conditions[] = "price<=" . mysqli_real_escape_string($link, $_GET["price2"]);
 }
 
-$query = "SELECT ad.*, user.name AS user_name FROM ad INNER JOIN user ON ad.user_id=user.id";
+$query = "SELECT ad.*, user.name AS user_name";
+$countQuery = "SELECT COUNT(*) AS count";
+$search = " FROM ad INNER JOIN user ON ad.user_id=user.id";
 if (count($conditions) > 0) {
-  $query .= " WHERE " . implode(" AND ", $conditions);
+  $search .= " WHERE " . implode(" AND ", $conditions);
 }
+$query .= $search;
+$countQuery .= $search;
+$adsCountResult = mysqli_query($link, $countQuery);
+$adsCount = mysqli_fetch_array($adsCountResult, MYSQLI_ASSOC);
+$count = $adsCount['count'];
+$adsPerPage = 2;
+$pages = ceil($count / $adsPerPage);
+$page = isset($_GET["page"]) ? $_GET["page"] : 1;
+$start = ($page - 1) * $adsPerPage;
+$query .= " LIMIT " . $start . "," . $adsPerPage;
 $adsResult = mysqli_query($link, $query);
 ?>
 <h2 class="form-title">List</h2>
@@ -85,7 +97,8 @@ $adsResult = mysqli_query($link, $query);
     </select>
     <button class="button">Submit</button>
   </form>
-  <ul class="ads-list">
+  <ul class="ads-container">
+    <div class="ads-list">
     <?php
     while ($ad = mysqli_fetch_array($adsResult, MYSQLI_ASSOC)) {
     ?>
@@ -106,5 +119,16 @@ $adsResult = mysqli_query($link, $query);
     }
     close($link);
     ?>
+    </div>
+    <div class="ads-pagination">
+      <?php
+      if ($pages > 1) {
+        for ($i = 1; $i <= $pages; $i++) {
+          if ($page == $i) echo "<span>" . $page . "</span>";
+          else echo "<a href='list.php?page=" . $i ."'>" . $i . "</a>";
+        }
+      }
+      ?>
+    </div>
   </ul>
 </div>
