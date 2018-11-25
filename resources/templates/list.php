@@ -43,16 +43,18 @@ $adsResult = mysqli_query($link, $query);
 <div class="list-container">
   <form action="" method="get" class="filters">
     <label for="name">Name:</label>
-    <input type="text" name="name" maxlength="15">
+    <input type="text" name="name" maxlength="15" value="<?php echo isset($_GET['name']) ? $_GET['name'] : '' ?>">
     <fieldset>
       <legend>Price:</legend>
-      <input type="number" name="price1" maxlength="11" placeholder="From">
-      <input type="number" name="price2" maxlength="11" placeholder="To">
+      <input type="number" name="price1" maxlength="11" placeholder="From" value="<?php echo isset($_GET['price1']) ? $_GET['price1'] : '' ?>">
+      <input type="number" name="price2" maxlength="11" placeholder="To" value="<?php echo isset($_GET['price2']) ? $_GET['price2'] : '' ?>">
     </fieldset>
     <label for="city">City:</label>
     <select name="city">
-      <option disabled selected value>Select a city</option>
+      <?php if (empty($_GET["city"])) { ?>
+        <option disabled selected value>Select a city</option>
       <?php
+      }
       $statesQuery = "SELECT * FROM state";
       $statesResult = mysqli_query($link, $statesQuery);
       while ($state = mysqli_fetch_array($statesResult, MYSQLI_ASSOC)) {
@@ -63,7 +65,7 @@ $adsResult = mysqli_query($link, $query);
         $citiesResult = mysqli_query($link, $citiesQuery);
         while ($city = mysqli_fetch_array($citiesResult, MYSQLI_ASSOC)) {
         ?>
-          <option value=<?php echo $city['id']; ?>>
+          <option value=<?php echo $city['id']; ?> <?php echo (!empty($_GET['city']) && $_GET['city'] == $city['id']) ? 'selected="selected"' : ''; ?>>
             <?php echo $city['name'] ?>
           </option>
         <?php } ?>
@@ -74,8 +76,10 @@ $adsResult = mysqli_query($link, $query);
     </select>
     <label for="subcategory">Subcategory:</label>
     <select name="subcategory">
-      <option disabled selected value>Select a subcategory</option>
+      <?php if (empty($_GET["subcategory"])) { ?>
+        <option disabled selected value>Select a subcategory</option>
       <?php
+      }
       $categoryQuery = "SELECT * FROM category";
       $categoryResult = mysqli_query($link, $categoryQuery);
       while ($category = mysqli_fetch_array($categoryResult, MYSQLI_ASSOC)) {
@@ -86,7 +90,7 @@ $adsResult = mysqli_query($link, $query);
         $subcategoriesResult = mysqli_query($link, $subcategoriesQuery);
         while ($subcategory = mysqli_fetch_array($subcategoriesResult, MYSQLI_ASSOC)) {
         ?>
-          <option value=<?php echo $subcategory['id']; ?>>
+          <option value=<?php echo $subcategory['id']; ?> <?php echo (!empty($_GET['subcategory']) && $_GET['subcategory'] == $subcategory['id']) ? 'selected="selected"' : ''; ?>>
             <?php echo $subcategory['name'] ?>
           </option>
         <?php } ?>
