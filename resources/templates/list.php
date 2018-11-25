@@ -124,8 +124,11 @@ $adsResult = mysqli_query($link, $query);
       <?php
       if ($pages > 1) {
         for ($i = 1; $i <= $pages; $i++) {
+          $query = $_GET;
+          $query['page'] = $i;
+          $query_result = http_build_query($query);
           if ($page == $i) echo "<span>" . $page . "</span>";
-          else echo "<a href='list.php?page=" . $i ."'>" . $i . "</a>";
+          else echo "<a href='list.php?" . $query_result ."'>" . $i . "</a>";
         }
       }
       ?>
