@@ -1,7 +1,7 @@
 <?php
 unset($error);
 if(isset($_SESSION['username'])) {
-  header("location: welcome.php");
+  header("location: profile.php");
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -29,7 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       $_SESSION['username'] = $username;
       $_SESSION['id'] = mysqli_insert_id($link);
       $_SESSION['email'] = $email;
-      header("location: welcome.php");
+      header("location: profile.php");
     } else {
       $error = "Error while trying to create user";
     }

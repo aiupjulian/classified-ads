@@ -1,6 +1,6 @@
 <?php
 if(isset($_SESSION['username'])) {
-  header("location: welcome.php");
+  header("location: profile.php");
 }
 unset($error);
 
@@ -23,7 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $_SESSION['email'] = $user["email"];
     mysqli_free_result($userResult);
     close($link);
-    header("location: welcome.php");
+    header("location: profile.php");
   } else {
     $error = "Username or password is invalid";
   }
