@@ -20,6 +20,7 @@ if (!empty($_GET["price1"]) && !empty($_GET["price2"])) {
 } else if (!empty($_GET["price2"])) {
   $conditions[] = "price<=" . mysqli_real_escape_string($link, $_GET["price2"]);
 }
+$conditions[] = "sold=0";
 
 $query = "SELECT ad.*, user.name AS user_name";
 $countQuery = "SELECT COUNT(*) AS count";
