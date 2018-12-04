@@ -1,0 +1,52 @@
+.ads-container {
+  border: 1px solid var(--primary-color);
+  border-radius: 10px;
+  width: 60%;
+  padding: 40px;
+  margin: 20px auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.ads-list > li {
+  width: 100%;
+  list-style: none;
+  margin-bottom: 30px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.ads-list > li > a {
+  width: 70%;
+  display: flex;
+  justify-content: space-around;
+  padding: 10px;
+  border: 1px solid var(--primary-color);
+  border-radius: 10px;
+  margin-right: 5px;
+}
+
+.ads-list > li > a > img {
+  height: 100px;
+}
+
+.ad-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.ads-container a {
+  color: black;
+}
+
+.ads-container a:hover {
+  background-color: green;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
