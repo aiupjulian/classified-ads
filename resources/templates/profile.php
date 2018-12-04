@@ -9,9 +9,6 @@ connect($link);
 $user_id = mysqli_real_escape_string($link, $_SESSION['id']);
 
 $query = "SELECT * FROM user WHERE user.id = '$user_id'";
-// $query = "SELECT ad.* AS ad, user.name AS user_name"
-//   . " FROM ad INNER JOIN user ON ad.user_id = user.id"
-//   . " WHERE user.id = '$_SESSION['id'])'";
 $userResult = mysqli_query($link, $query);
 $user = mysqli_fetch_array($userResult, MYSQLI_ASSOC);
 
@@ -43,9 +40,11 @@ $adsResult = mysqli_query($link, $query);
         </div>
       </a>
       <div class="actions">
-        <a class="button">Edit</a>
-        <a class="button">Delete</a>
-        <a class="button">Mark as sold</a>
+        <a class="button" href="/?id=<?php echo $ad['id']; ?>">Edit</a>
+        <a class="button" href="/deleteAd.php?id=<?php echo $ad['id']; ?>">Delete</a>
+        <?php if (!$ad['sold']) { ?>
+        <a class="button" href="/markAdAsSold.php?id=<?php echo $ad['id']; ?>">Mark as sold</a>
+        <?php } ?>
       </div>
     </li>
   <?php

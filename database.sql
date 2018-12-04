@@ -48,7 +48,7 @@ CREATE TABLE `ad` (
   CONSTRAINT `ad_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE,
   CONSTRAINT `ad_ibfk_2` FOREIGN KEY (`subcategory_id`) REFERENCES `subcategory` (`id`),
   CONSTRAINT `ad_ibfk_3` FOREIGN KEY (`city_id`) REFERENCES `city` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -57,7 +57,7 @@ CREATE TABLE `ad` (
 
 LOCK TABLES `ad` WRITE;
 /*!40000 ALTER TABLE `ad` DISABLE KEYS */;
-INSERT INTO `ad` VALUES (1,'Grey Owl','Beautiful grey owl',10000,0,'2018-11-14',2,'cff5cd6cdd98d4b4f95fd7d395331d549a6fb2512018-11-1458.jpg',13,1),(2,'VW Gol','New 2018 VW Gol',250000,0,'2018-11-19',5,'fad3322276a10198d6d6e5a3158eb310815be9162018-11-1948.jpg',1,4);
+INSERT INTO `ad` VALUES (2,'VW Gol','New 2018 VW Gol',250000,0,'2018-11-19',5,'fad3322276a10198d6d6e5a3158eb310815be9162018-11-1948.jpg',1,4),(3,'Ford Fiesta','Almost new 2017 ford fiesta',200000,0,'2018-11-21',2,'49bce113d8ef9ae837887f84ec4e0a5f56602c472018-11-2133.jpeg',1,4);
 /*!40000 ALTER TABLE `ad` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -126,9 +126,9 @@ CREATE TABLE `comment` (
   `text` varchar(200) NOT NULL,
   `date` date NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `ad_id` (`ad_id`),
   KEY `user_id` (`user_id`),
-  CONSTRAINT `comment_ibfk_1` FOREIGN KEY (`ad_id`) REFERENCES `ad` (`id`),
+  KEY `comment_ibfk_1` (`ad_id`),
+  CONSTRAINT `comment_ibfk_1` FOREIGN KEY (`ad_id`) REFERENCES `ad` (`id`) ON DELETE CASCADE,
   CONSTRAINT `comment_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -139,7 +139,6 @@ CREATE TABLE `comment` (
 
 LOCK TABLES `comment` WRITE;
 /*!40000 ALTER TABLE `comment` DISABLE KEYS */;
-INSERT INTO `comment` VALUES (1,1,2,'Hello! This is my Ad!','2018-11-14'),(2,1,2,'Hello! This is my Ad!','2018-11-14'),(3,1,3,'Hello! Is this owl real?','2018-11-14'),(4,1,3,'Make an offer','2018-11-19'),(5,1,3,'Make an offer','2018-11-19'),(6,1,3,'Make an offer','2018-11-19'),(7,1,3,'Make an offer','2018-11-19'),(8,1,3,'Make an offer','2018-11-19'),(9,1,3,'Make an offer','2018-11-19'),(10,1,3,'Make an offer','2018-11-19'),(11,1,3,'Make an offer','2018-11-19'),(12,1,3,'Make an offer','2018-11-19'),(13,1,3,'Make an offer','2018-11-19'),(14,1,3,'Make an offer','2018-11-19'),(15,1,3,'Make an offer','2018-11-19'),(16,1,3,'Make an offer','2018-11-19');
 /*!40000 ALTER TABLE `comment` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -232,4 +231,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-11-21  0:45:36
+-- Dump completed on 2018-12-04  0:23:03
