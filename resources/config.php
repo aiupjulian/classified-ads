@@ -20,7 +20,7 @@ $config = array(
   "paths" => array(
     // "resources" => "/path/to/resources",
     "images" => array(
-      "uploads" => $_SERVER['DOCUMENT_ROOT'] . "/images/uploaded",
+      "uploads" => $_SERVER['DOCUMENT_ROOT'] . "/public_html/images/uploaded",
     )
   )
 );

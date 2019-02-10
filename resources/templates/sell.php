@@ -6,6 +6,46 @@ if (!isset($_SESSION['username'])) {
   header('location: index.php');
 }
 
+// edit ad
+if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET["id"])) {
+  $link;
+  connect($link);
+  $ad_id = mysqli_real_escape_string($link, $_GET['id']);
+  $user_id = $_SESSION['id'];
+  $query = "SELECT ad.*, user.username AS user_username, user.email AS user_email, user.phone AS user_phone, user.name AS user_name, city.name AS city_name,"
+  . " state.name AS state_name, subcategory.name AS subcategory_name, category.name AS category_name, city.id AS city_id, subcategory.id AS subcategory_id"
+  . " FROM ad INNER JOIN user ON ad.user_id = user.id"
+  . " INNER JOIN city ON ad.city_id = city.id"
+  . " INNER JOIN state ON city.state_id = state.id"
+  . " INNER JOIN subcategory ON ad.subcategory_id = subcategory.id"
+  . " INNER JOIN category ON subcategory.category_id = category.id WHERE ad.id='$ad_id' AND user.id='$user_id'";
+  $adResult = mysqli_query($link, $query);
+  $ad = mysqli_fetch_array($adResult, MYSQLI_ASSOC);
+  $count = mysqli_num_rows($adResult);
+  if ($count == 1) {
+    $name = $ad['name'];
+    $description = $ad['description'];
+    $price = $ad['price'];
+    $date = $ad['date'];
+    $ad_user_username = $ad['user_username'];
+    $ad_user_name = $ad['user_name'];
+    $ad_user_phone = $ad['user_phone'];
+    $ad_user_email = $ad['user_email'];
+    $image = $ad['image'];
+    $sold = $ad['sold'];
+    $state = $ad['state_name'];
+    $city_id = $ad['city_id'];
+    $city = $ad['city_name'];
+    $category = $ad['category_name'];
+    $subcategory_id = $ad['subcategory_id'];
+    $subcategory = $ad['subcategory_name'];
+    mysqli_free_result($adResult);
+    close($link);
+  } else {
+    header("location: error.php");
+  }
+}
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $link;
   connect($link);
@@ -42,13 +82,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $image_path = sha1_file($file_tmp) . $date . $date_array['seconds'] . "." . $file_ext;
     $path_to_upload = $config["paths"]["images"]["uploads"] . "/" . $image_path;
     if (move_uploaded_file($file_tmp, $path_to_upload)) {
-      $query = "INSERT INTO ad (name, description, price, date, user_id, image, city_id, subcategory_id)"
-        . "VALUES ('$name', '$description', '$price', '$date', '$user_id', '$image_path', '$city_id', '$subcategory_id')";
-      if (mysqli_query($link, $query)) {
-        $ad_id = mysqli_insert_id($link);
-        header("location: ad.php?id=" . $ad_id);
+      if (isset($_GET["id"])) {
+        $ad_id = mysqli_real_escape_string($link, $_GET['id']);
+        $query = "UPDATE ad SET name='$name', description='$description', price='$price', image='$image_path', city_id='$city_id', subcategory_id='$subcategory_id'"
+          . " WHERE ad.id='$ad_id'";
+          if (mysqli_query($link, $query)) {
+            header("location: ad.php?id=" . $ad_id);
+          } else {
+            $error = "Error while trying to update ad.";
+          }
       } else {
-        $error = "Error while trying to create ad.";
+        $query = "INSERT INTO ad (name, description, price, date, user_id, image, city_id, subcategory_id)"
+          . "VALUES ('$name', '$description', '$price', '$date', '$user_id', '$image_path', '$city_id', '$subcategory_id')";
+        if (mysqli_query($link, $query)) {
+          $ad_id = mysqli_insert_id($link);
+          header("location: ad.php?id=" . $ad_id);
+        } else {
+          $error = "Error while trying to create ad.";
+        }
       }
     } else {
       $error = 'There was a problem uploading the file.';
@@ -60,11 +111,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <h2 class="form-title">Create Ad</h2>
 <form action="" method="post" class="form" enctype="multipart/form-data">
   <label for="name">Name:</label>
-  <input type="text" name="name" maxlength="15" required>
+  <input type="text" name="name" maxlength="15" required <?php if(isset($name)) echo "value='$name'"; ?>>
   <label for="description">Description:</label>
-  <input type="text" name="description" maxlength="60" required>
+  <input type="text" name="description" maxlength="60" required <?php if(isset($description)) echo "value='$description'"; ?>>
   <label for="price">Price:</label>
-  <input type="number" name="price" maxlength="11" required>
+  <input type="number" name="price" maxlength="11" required <?php if(isset($price)) echo "value='$price'"; ?>>
   <label for="city">City:</label>
   <select name="city">
     <?php
@@ -80,7 +131,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       $citiesResult = mysqli_query($link, $citiesQuery);
       while ($city = mysqli_fetch_array($citiesResult, MYSQLI_ASSOC)) {
       ?>
-        <option value=<?php echo $city['id']; ?>>
+        <option value=<?php echo $city['id']; ?> <?php if(isset($city_id) && $city['id'] == $city_id) echo 'selected="selected"'; ?>>
           <?php echo $city['name'] ?>
         </option>
       <?php } ?>
@@ -105,7 +156,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       $subcategoriesResult = mysqli_query($link, $subcategoriesQuery);
       while ($subcategory = mysqli_fetch_array($subcategoriesResult, MYSQLI_ASSOC)) {
       ?>
-        <option value=<?php echo $subcategory['id']; ?>>
+        <option value=<?php echo $subcategory['id']; ?> <?php if(isset($subcategory_id) && $subcategory['id'] == $subcategory_id) echo 'selected="selected"'; ?>>
           <?php echo $subcategory['name'] ?>
         </option>
       <?php } ?>

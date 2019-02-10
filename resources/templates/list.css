@@ -69,3 +69,11 @@
 .ads-pagination > * {
   margin-right: 10px;
 }
+
+.ad-delete-admin > a {
+  color: red;
+}
+
+.ad-delete-admin > a:hover {
+  background-color: unset;
+}

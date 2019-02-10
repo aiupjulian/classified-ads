@@ -1,4 +1,5 @@
 <?php
+session_start();
 if ($_GET['id'] && isset($_SESSION['username'])) {
   require_once(realpath(dirname(__FILE__) . "/../resources/config.php"));
   require_once(LIBRARY_PATH . "/databaseFunctions.php");

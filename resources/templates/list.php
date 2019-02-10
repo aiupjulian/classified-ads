@@ -119,6 +119,9 @@ $adsResult = mysqli_query($link, $query);
             <div class="ad-date"><?php echo $ad['date']; ?></div>
           </div>
         </a>
+        <?php if(isset($_SESSION["admin"])) { ?>
+          <div class="ad-delete-admin"><a href="<?php echo "/deleteAd.php?id=" . $ad['id'] ?>">Delete this ad</a></div>
+        <?php } ?>
       </li>
     <?php
     }

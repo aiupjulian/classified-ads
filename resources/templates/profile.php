@@ -40,7 +40,7 @@ $adsResult = mysqli_query($link, $query);
         </div>
       </a>
       <div class="actions">
-        <a class="button" href="/?id=<?php echo $ad['id']; ?>">Edit</a>
+        <a class="button" href="/sell.php?id=<?php echo $ad['id']; ?>">Edit</a>
         <a class="button" href="/deleteAd.php?id=<?php echo $ad['id']; ?>">Delete</a>
         <?php if (!$ad['sold']) { ?>
         <a class="button" href="/markAdAsSold.php?id=<?php echo $ad['id']; ?>">Mark as sold</a>
