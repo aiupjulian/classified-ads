@@ -3,7 +3,7 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Simple Site</title>
+  <title>Classified Ads</title>
   <link href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.0/normalize.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
   <style>
@@ -20,7 +20,7 @@
     <a href="index.php"><h1>Classified Ads</h1></a>
   </div>
   <form action="/list.php" method="get" class="header-section">
-    <input type="text" name="name" maxlength="15" required placeholder="What are you looking for?"/>
+    <input type="text" name="name" maxlength="15" placeholder="What are you looking for?"/>
     <button class="button">Search</button>
   </form>
   <div class="header-section">

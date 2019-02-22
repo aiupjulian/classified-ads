@@ -48,3 +48,7 @@ body {
   color: #cc0000;
   margin-top: 10px;
 }
+
+.required {
+  color: red;
+}

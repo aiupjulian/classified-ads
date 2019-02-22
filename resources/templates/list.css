@@ -53,9 +53,13 @@
   justify-content: space-between;
 }
 
-.ads-container a {
+/* .ads-container a {
   color: black;
-}
+} */
+
+/* .ads-container a:visited {
+  color: grey;
+} */
 
 .ads-container a:hover {
   background-color: green;

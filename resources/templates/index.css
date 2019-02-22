@@ -3,17 +3,13 @@
 }
 
 .hero-container {
-    height: var(--hero-image-height);
+    height: var(--hero-height);
     margin: 0 0 5px;
 }
 
 .hero {
     box-sizing: border-box;
-    height: var(--hero-image-height);
-    background-image: url('images/hero.jpg');
-    background-repeat: no-repeat;
-    background-position: center 64%;
-    background-size: cover;
+    height: var(--hero-height);
     position: absolute;
     top: 0;
     bottom: 0;
@@ -21,7 +17,6 @@
     right: 0;
     z-index: 1;
     padding: 100px 0 0 20px;
-    color: var(--secondary-color);
 }
 
 .categories-title {

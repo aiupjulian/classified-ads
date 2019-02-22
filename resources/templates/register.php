@@ -15,39 +15,44 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $phone = mysqli_real_escape_string($link, $_POST['phone']);
   $email = mysqli_real_escape_string($link, $_POST['email']);
   $hash = password_hash($password, PASSWORD_BCRYPT);
-
-  $query = "SELECT * FROM user WHERE username='$username'";
-  $userResult = mysqli_query($link, $query);
-
-  $count = mysqli_num_rows($userResult);
-
-  if ($count == 1) {
-    $error = "Username has already been taken";
-  } else {
-    $query = "INSERT INTO user (username, password, name, phone, email) VALUES ('$username', '$hash', '$name', '$phone', '$email')";
-    if (mysqli_query($link, $query)) {
-      $_SESSION['username'] = $username;
-      $_SESSION['id'] = mysqli_insert_id($link);
-      $_SESSION['email'] = $email;
-      header("location: profile.php");
-    } else {
-      $error = "Error while trying to create user";
-    }
+  
+  if ($username=='' || $password=='' || $name=='' || $phone=='' || $email=='') {
+    $error = 'Please enter all the required fields.';
   }
-  close($link);
+  if (!isset($error)) {
+    $query = "SELECT * FROM user WHERE username='$username'";
+    $userResult = mysqli_query($link, $query);
+
+    $count = mysqli_num_rows($userResult);
+
+    if ($count == 1) {
+      $error = "Username has already been taken";
+    } else {
+      $query = "INSERT INTO user (username, password, name, phone, email) VALUES ('$username', '$hash', '$name', '$phone', '$email')";
+      if (mysqli_query($link, $query)) {
+        $_SESSION['username'] = $username;
+        $_SESSION['id'] = mysqli_insert_id($link);
+        $_SESSION['email'] = $email;
+        header("location: profile.php");
+      } else {
+        $error = "Error while trying to create user";
+      }
+    }
+    close($link);
+  }
 }
 ?>
 <h2 class="form-title">Register</h2>
 <form action="" method="post" class="form">
-  <label for="username">Username:</label>
+  <label for="username">Username:<span class="required"> (*)</span></label>
   <input type="text" name="username" maxlength="15" required>
-  <label for="password">Password:</label>
+  <label for="password">Password:<span class="required"> (*)</span></label>
   <input type="password" name="password" maxlength="30" required>
-  <label for="name">Name:</label>
+  <label for="name">Name:<span class="required"> (*)</span></label>
   <input type="text" name="name" maxlength="30" required>
-  <label for="phone">Phone:</label>
+  <label for="phone">Phone:<span class="required"> (*)</span></label>
   <input type="tel" name="phone" maxlength="15" required>
-  <label for="email">Email:</label>
+  <label for="email">Email:<span class="required"> (*)</span></label>
   <input type="email" name="email" maxlength="20" required>
   <button class="button">Register</button>
   <?php if (isset($error)) { ?>

@@ -9,10 +9,10 @@
 */
 $config = array(
   "db" => array(
-    "dbname" => "classified_ads",
-    "username" => "root",
-    "password" => "root",
-    "host" => "localhost"
+    "dbname" => "epiz_23170221_classified_ads",
+    "username" => "epiz_23170221",
+    "password" => "2M2dhsx18ApkWy",
+    "host" => "sql107.epizy.com"
   ),
   "urls" => array(
     "baseUrl" => "http://classified-ads.test"

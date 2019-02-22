@@ -51,12 +51,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $user_id = $_SESSION['id'];
 
   if (isset($_POST['email'])) {
-    // validations
-    // if () {
-    //    $email_error = '';
-    // } else if () {
-    //    $email_error = '';
-    // }
+    if ($text == '') {
+       $email_error = 'Please enter a text message.';
+    }
     if (!isset($email_error)) {
       $message = $name . '\r\n' . $text . '\r\n' . $_SESSION['username'] . ' - ' . $date . '\r\n' . $_SESSION['email'];
       $message = wordwrap($message, 70, "\r\n");
@@ -65,12 +62,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       }
     }
   } else if (isset($_POST['comment'])) {
-    // validations
-    // if () {
-    //    $comment_error = '';
-    // } else if () {
-    //    $comment_error = '';
-    // }
+    if ($text == '') {
+       $comment_error = 'Please enter a text message.';
+    }
     if (!isset($comment_error)) {
       $query = "INSERT INTO comment (ad_id, user_id, text, date) VALUES ('$ad_id', '$user_id', '$text', '$date')";
       if (!mysqli_query($link, $query)) {
@@ -84,7 +78,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <h2 class="ad-title"><?php echo $name; ?></h2>
 <div class="ad-container">
   <div class="ad-image">
-    <img src="<?php echo "images/uploaded/" . $image; ?>" />
+    <img alt="<?php echo "Image for Ad " . $name; ?>" src="<?php echo "images/uploaded/" . $image; ?>" />
   </div>
   <div class="ad-details">
     <div><b>Description:</b> <?php echo $description; ?></div>
@@ -98,8 +92,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <?php if (!$sold && isset($_SESSION['username']) && $_SESSION['username'] !== $ad_user_username) { ?>
       <form action="" method="post" class="form">
         <input type="hidden" name="email" />
-        <label for="text">Text:</label>
-        <textarea type="text" name="text" rows="5" cols="30" maxlength="200" required>Make an offer</textarea>
+        <label for="text">Text:<span class="required"> (*)</span></label>
+        <textarea type="text" name="text" rows="5" cols="30" maxlength="200" required placeholder="Make an offer"></textarea>
         <button class="button">Submit</button>
         <?php if (isset($email_error)) { ?>
           <div class="error"><?php echo $email_error; ?></div>
@@ -134,8 +128,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <?php if (isset($_SESSION['username'])) { ?>
     <form action="" method="post" class="form">
       <input type="hidden" name="comment" />
-      <label for="text">Text:</label>
-      <textarea type="text" name="text" rows="5" cols="30" maxlength="200" required>Send a comment</textarea>
+      <label for="text">Text:<span class="required"> (*)</span></label>
+      <textarea type="text" name="text" rows="5" cols="30" maxlength="200" required placeholder="Send a comment"></textarea>
       <button class="button">Submit</button>
       <?php if (isset($comment_error)) { ?>
         <div class="error"><?php echo $comment_error; ?></div>

@@ -31,7 +31,7 @@ $adsResult = mysqli_query($link, $query);
   ?>
     <li>
       <a href="<?php echo "/ad.php?id=" . $ad['id'] ?>">
-        <img src="<?php echo "images/uploaded/" . $ad['image']; ?>" />
+        <img alt="<?php echo "Image for Ad " . $ad['name']; ?>" src="<?php echo "images/uploaded/" . $ad['image']; ?>" />
         <div class="ad-container">
           <div class="ad-name"><?php echo $ad['name']; ?></div>
           <div class="ad-price">$<?php echo $ad['price']; ?></div>

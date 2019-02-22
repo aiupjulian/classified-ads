@@ -10,3 +10,8 @@
     height: var(--footer-height);
     color: #FFF;
 }
+
+.footer-contact {
+    position: absolute;
+    right: 5px;
+}

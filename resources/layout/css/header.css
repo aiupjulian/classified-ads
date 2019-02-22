@@ -12,6 +12,11 @@
   box-shadow: 0 0 3px 3px rgba(102, 102, 102, 0.5);
 }
 
+.header-section:first-child > a {
+  color: white;
+  text-decoration: none;
+}
+
 .header > .header-section {
   padding: 0 2vw;
   display: flex;
@@ -29,9 +34,4 @@
 
 h1 {
   margin: 0;
-}
-
-a {
-  color: #FFF;
-  text-decoration: none;
 }

@@ -20,9 +20,11 @@ if ($_GET['id'] && isset($_SESSION['username'])) {
     if (mysqli_query($link, $query)) {
       header("location: profile.php");
     } else {
+      echo mysqli_error($link);
       header("location: index.php");
     }
   } else {
+    echo mysqli_error($link);
     header("location: index.php");
   }
 } else {

@@ -2,6 +2,7 @@
     <div class="hero">
         <h2>Welcome to Classified Ads!</h2>
         <h3>Where you can buy and sell everything</h3>
+        <p>Please register to start buying and selling! If you want you can just browse our categories.</p>
     </div>
 </div>
 <div class="categories-title">

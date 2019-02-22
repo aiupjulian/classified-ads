@@ -37,10 +37,6 @@
   justify-content: space-between;
 }
 
-.ads-container a {
-  color: black;
-}
-
 .ads-container a:hover {
   background-color: green;
 }

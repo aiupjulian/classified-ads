@@ -2,7 +2,6 @@
 require_once(LIBRARY_PATH . "/databaseFunctions.php");
 $link;
 connect($link);
-
 $conditions = array();
 if (!empty($_GET["name"])) {
   $conditions[] = "ad.name LIKE '%" . mysqli_real_escape_string($link, $_GET["name"]) . "%'";
@@ -109,7 +108,7 @@ $adsResult = mysqli_query($link, $query);
     ?>
       <li>
         <a href="<?php echo "/ad.php?id=" . $ad['id'] ?>">
-          <img src="<?php echo "images/uploaded/" . $ad['image']; ?>" />
+          <img alt="<?php echo "Image for Ad " . $ad['name']; ?>" src="<?php echo "images/uploaded/" . $ad['image']; ?>" />
           <div class="ad-container">
             <div class="ad-name"><?php echo $ad['name']; ?></div>
             <div class="ad-user-name">
@@ -119,7 +118,7 @@ $adsResult = mysqli_query($link, $query);
             <div class="ad-date"><?php echo $ad['date']; ?></div>
           </div>
         </a>
-        <?php if(isset($_SESSION["admin"])) { ?>
+        <?php if(isset($_SESSION["admin"]) && $_SESSION["admin"])  { ?>
           <div class="ad-delete-admin"><a href="<?php echo "/deleteAd.php?id=" . $ad['id'] ?>">Delete this ad</a></div>
         <?php } ?>
       </li>
