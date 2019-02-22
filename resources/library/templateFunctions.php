@@ -15,17 +15,14 @@ function renderLayoutWithContentFile($contentFile, $variables = array()) {
         }
     }
 
+    $GLOBALS['contentFileFullPath'] = $contentFileFullPath;
+    $GLOBALS['styleFileFullPath'] = $styleFileFullPath;
     require_once(LAYOUT_PATH . "/header.php");
-
+    
     echo "<div class=\"container\">\n"
        . "\t<div class=\"content\">\n";
 
     if (file_exists($contentFileFullPath)) {
-        if (file_exists($styleFileFullPath)) {
-            echo "<style>\n";
-            require_once($styleFileFullPath);
-            echo "</style>\n";
-        }
         require_once($contentFileFullPath);
     } else {
         require_once(TEMPLATES_PATH . "/error.php");
