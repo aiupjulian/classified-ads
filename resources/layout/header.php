@@ -25,17 +25,17 @@
     <h1><a href="index.php">Classified Ads</a></h1>
   </div>
   <form action="/list.php" method="get" class="header-section">
-    <input type="text" name="name" maxlength="15" placeholder="What are you looking for?" />
-    <button class="button">Search</button>
+    <input type="text" name="name" maxlength="15" placeholder="Qué estas buscando?" />
+    <button class="button">Buscar</button>
   </form>
   <div class="header-section">
-    <a href="list.php">List</a>
+    <a href="list.php">Listado</a>
     <?php if (isset($_SESSION['username'])) { ?>
-      <a href="sell.php">Sell</a>
-      <a href="profile.php">Profile</a>
+      <a href="sell.php">Vender</a>
+      <a href="profile.php">Perfil</a>
       <a href="logout.php">Logout</a>
     <?php } else { ?>
-      <a href="register.php">Register</a>
+      <a href="register.php">Registro</a>
       <a href="login.php">Login</a>
     <?php } ?>
   </div>

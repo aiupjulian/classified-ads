@@ -13,9 +13,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $password = mysqli_real_escape_string($link, $_POST['password']);
 
   if ($username == '') {
-    $error = 'Please enter your username.';
+    $error = 'Por favor ingrese su usuario.';
   } else if ($password == '') {
-    $error = 'Please enter your password.';
+    $error = 'Por favor ingrese su contraseña.';
   }
   if (!isset($error)) {
     $query = "SELECT * FROM user WHERE username='$username'";
@@ -32,18 +32,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       close($link);
       header("location: profile.php");
     } else {
-      $error = "Username or password is invalid";
+      $error = "Usuario o contraseña inválidos.";
     }
   }
 }
 ?>
 <h2 class="form-title">Login</h2>
 <form action="" method="post" class="form">
-  <label for="username">Username:<span class="required"> (*)</span></label>
-  <input type="text" name="username" maxlength="15" />
-  <label for="password">Password:<span class="required"> (*)</span></label>
-  <input type="password" name="password" maxlength="30" />
-  <button class="button">Submit</button>
+  <label for="username">Usuario:<span class="required"> (*)</span></label>
+  <input type="text" name="username" maxlength="15" required />
+  <label for="password">Contraseña:<span class="required"> (*)</span></label>
+  <input type="password" name="password" maxlength="30" required />
+  <button class="button">Ingresar</button>
   <?php if (isset($error)) { ?>
     <div class="error"><?php echo $error; ?></div>
   <?php } ?>

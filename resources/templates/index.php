@@ -1,12 +1,14 @@
 <div class="hero-container">
-    <div class="hero">
-        <h2>Welcome to Classified Ads!</h2>
-        <h3>Where you can buy and sell everything</h3>
-        <p>Please register to start buying and selling! If you want you can just browse our categories.</p>
+    <div class="hero"></div>
+    <div class="hero-text">
+        <h2>Bienvenido a Classified Ads!</h2>
+        <h3>Donde podes comprar y vender lo que quieras</h3>
+        <p><b>Por favor registrate para empezar a comprar y vender!</b></p>
+        <p><b>Si querés simplemente podes revisar avisos entre las subcategorías.</b></p>
     </div>
 </div>
 <div class="categories-title">
-    <h3>Categories</h3><a href="/list.php">See All</a>
+    <h3>Categorías</h3><a href="/list.php">Ver todas</a>
 </div>
 <div class="categories-list">
 <?php

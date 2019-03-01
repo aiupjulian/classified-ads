@@ -63,7 +63,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $user_id = $_SESSION['id'];
 
   if ($name=='' || $description=='' || $price=='' || $city_id=='' || $subcategory_id=='' || $_FILES['image']['size']==0) {
-    $error = 'Please complete all the required fields.';
+    $error = 'Por favor complete todos los campos requeridos.';
   }
 
   if (!isset($error)) {
@@ -77,9 +77,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $extensions = array('jpeg', 'jpg', 'png');
 
     if (in_array($file_ext, $extensions) === false) {
-      $error = 'Extension not allowed, please choose a JPEG or PNG file.';
+      $error = 'Por favor seleccione un archivo con extensión JPEG o PNG.';
     } else if ($file_error === 2 || $file_size > 2000000) {
-      $error = 'File size must be less than 2 MB.';
+      $error = 'El archivo debe pesar menos de 2 MB.';
     }
 
     if (!isset($error)) {
@@ -94,7 +94,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if (mysqli_query($link, $query)) {
               header("location: ad.php?id=" . $ad_id);
             } else {
-              $error = "Error while trying to update ad.";
+              $error = "Hubo un error al intentar actualizar el aviso.";
             }
         } else {
           $query = "INSERT INTO ad (name, description, price, date, user_id, image, city_id, subcategory_id)"
@@ -103,26 +103,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $ad_id = mysqli_insert_id($link);
             header("location: ad.php?id=" . $ad_id);
           } else {
-            $error = "Error while trying to create ad.";
+            $error = "Hubo un error al intentar crear el aviso.";
           }
         }
       } else {
-        $error = 'There was a problem uploading the file.';
+        $error = 'Hubo un error al intentar subir el archivo.';
       }
     }
   }
   close($link);
 }
 ?>
-<h2 class="form-title">Create Ad</h2>
+<h2 class="form-title">Crear Aviso</h2>
 <form action="" method="post" class="form" enctype="multipart/form-data">
-  <label for="name">Name:<span class="required"> (*)</span></label>
+  <label for="name">Nombre:<span class="required"> (*)</span></label>
   <input type="text" name="name" maxlength="15" required <?php if(isset($name)) echo "value='$name'"; ?>>
-  <label for="description">Description:<span class="required"> (*)</span></label>
+  <label for="description">Descripción:<span class="required"> (*)</span></label>
   <input type="text" name="description" maxlength="60" required <?php if(isset($description)) echo "value='$description'"; ?>>
-  <label for="price">Price:<span class="required"> (*)</span></label>
+  <label for="price">Precio:<span class="required"> (*)</span></label>
   <input type="number" name="price" maxlength="11" required <?php if(isset($price)) echo "value='$price'"; ?>>
-  <label for="city">City:<span class="required"> (*)</span></label>
+  <label for="city">Ciudad:<span class="required"> (*)</span></label>
   <select name="city" required>
     <?php
     $link;
@@ -147,7 +147,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     close($link);
     ?>
   </select>
-  <label for="subcategory">Subcategory:<span class="required"> (*)</span></label>
+  <label for="subcategory">Subcategoría:<span class="required"> (*)</span></label>
   <select name="subcategory" required>
     <?php
     $link;
@@ -172,10 +172,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     close($link);
     ?>
   </select>
-  <label for="image">Image:<span class="required"> (*)</span></label>
+  <label for="image">Imágen:<span class="required"> (*)</span></label>
   <input type="hidden" name="MAX_FILE_SIZE" value="2000000">
   <input type="file" name="image" accept="image/png, image/jpeg" required>
-  <button class="button">Submit</button>
+  <button class="button"><?php echo (isset($_GET["id"]) ? 'Editar' : 'Crear'); ?></button>
   <?php if (isset($error)) { ?>
     <div class="error"><?php echo $error; ?></div>
   <?php } ?>

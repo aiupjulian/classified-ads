@@ -1,22 +1,23 @@
 html {
-    height: 100%;
+  height: 100%;
 }
 
 body {
-    position: relative;
-    font-family: 'Roboto', sans-serif;
-    min-height: var(--content-min-height);
-    margin-top: var(--header-height);
+  position: relative;
+  font-family: 'Roboto', sans-serif;
+  min-height: var(--content-min-height);
+  margin-top: var(--header-height);
+  background-color: #ebebeb;
 }
 
 .button {
-    background-color: var(--secondary-color);
-    border: 1px solid var(--secondary-color);
-    font-weight: bold;
-    color: #FFF;
-    border-radius: 4px;
-    padding: 1vh 2vw;
-    cursor: pointer;
+  background-color: var(--secondary-color);
+  border: 1px solid var(--secondary-color);
+  font-weight: bold;
+  color: #FFF;
+  border-radius: 4px;
+  padding: 1vh 2vw;
+  cursor: pointer;
 }
 
 .container {
@@ -29,8 +30,8 @@ body {
 }
 
 .form {
-  border: 1px solid var(--primary-color);
-  border-radius: 10px;
+  border-radius: 5px;
+  background-color: #FFF;
   width: 25%;
   padding: 40px;
   margin: 20px auto;

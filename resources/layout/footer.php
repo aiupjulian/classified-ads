@@ -8,9 +8,20 @@ $adminResult = mysqli_query($link, $query);
 $admin = mysqli_fetch_array($adminResult, MYSQLI_ASSOC);
 ?>
 <div class="footer">
-    <div class="footer-name">&#9400;2018 Classified Ads</div>
+    <div class="footer-sitemap">
+      <h3>Mapa del sitio:</h3>
+      <a href="index.php">Inicio</a>
+      <a href="list.php">Listado</a>
+      <?php if (isset($_SESSION['username'])) { ?>
+        <a href="profile.php">Perfil</a>
+        <a href="sell.php">Vender</a>
+      <?php } else { ?>
+        <a href="register.php">Registro</a>
+        <a href="login.php">Login</a>
+      <?php } ?>
+    </div>
     <?php if (isset($admin['email'])) { ?>
-      <div class="footer-contact">For any problems or doubts please contact: <?php echo $admin['email'];?></div>
+      <div class="admin-contact">Ante cualquier duda o problema por favor contacte a: <?php echo $admin['email'];?></div>
     <?php
       mysqli_free_result($adminResult);
       close($link);

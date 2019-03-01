@@ -39,20 +39,20 @@ $start = ($page - 1) * $adsPerPage;
 $query .= " LIMIT " . $start . "," . $adsPerPage;
 $adsResult = mysqli_query($link, $query);
 ?>
-<h2 class="form-title">List</h2>
+<h2 class="form-title">Listado</h2>
 <div class="list-container">
   <form action="" method="get" class="filters">
-    <label for="name">Name:</label>
+    <label for="name">Nombre:</label>
     <input type="text" name="name" maxlength="15" value="<?php echo isset($_GET['name']) ? $_GET['name'] : '' ?>">
     <fieldset>
-      <legend>Price:</legend>
+      <legend>Precio:</legend>
       <input type="number" name="price1" maxlength="11" placeholder="From" value="<?php echo isset($_GET['price1']) ? $_GET['price1'] : '' ?>">
       <input type="number" name="price2" maxlength="11" placeholder="To" value="<?php echo isset($_GET['price2']) ? $_GET['price2'] : '' ?>">
     </fieldset>
-    <label for="city">City:</label>
+    <label for="city">Ciudad:</label>
     <select name="city">
       <?php if (empty($_GET["city"])) { ?>
-        <option disabled selected value>Select a city</option>
+        <option disabled selected value>Seleccione una ciudad</option>
       <?php
       }
       $statesQuery = "SELECT * FROM state";
@@ -74,10 +74,10 @@ $adsResult = mysqli_query($link, $query);
       }
       ?>
     </select>
-    <label for="subcategory">Subcategory:</label>
+    <label for="subcategory">Subcategorías:</label>
     <select name="subcategory">
       <?php if (empty($_GET["subcategory"])) { ?>
-        <option disabled selected value>Select a subcategory</option>
+        <option disabled selected value>Seleccione una subcategoría</option>
       <?php
       }
       $categoryQuery = "SELECT * FROM category";
@@ -99,7 +99,7 @@ $adsResult = mysqli_query($link, $query);
       }
       ?>
     </select>
-    <button class="button">Submit</button>
+    <button class="button">Buscar</button>
   </form>
   <ul class="ads-container">
     <div class="ads-list">
@@ -108,18 +108,18 @@ $adsResult = mysqli_query($link, $query);
     ?>
       <li>
         <a href="<?php echo "/ad.php?id=" . $ad['id'] ?>">
-          <img alt="<?php echo "Image for Ad " . $ad['name']; ?>" src="<?php echo "images/uploaded/" . $ad['image']; ?>" />
+          <div class="image-container"><img alt="<?php echo "Image for Ad " . $ad['name']; ?>" src="<?php echo "images/uploaded/" . $ad['image']; ?>" /></div>
           <div class="ad-container">
             <div class="ad-name"><?php echo $ad['name']; ?></div>
             <div class="ad-user-name">
-              By: <?php echo $ad['user_name']; ?>
+              Creado por: <?php echo $ad['user_name']; ?>
             </div>
             <div class="ad-price">$<?php echo $ad['price']; ?></div>
             <div class="ad-date"><?php echo $ad['date']; ?></div>
           </div>
         </a>
         <?php if(isset($_SESSION["admin"]) && $_SESSION["admin"])  { ?>
-          <div class="ad-delete-admin"><a href="<?php echo "/deleteAd.php?id=" . $ad['id'] ?>">Delete this ad</a></div>
+          <div class="ad-delete-admin"><a href="<?php echo "/deleteAd.php?id=" . $ad['id'] ?>">Eliminar este aviso</a></div>
         <?php } ?>
       </li>
     <?php

@@ -16,34 +16,39 @@ $query = "SELECT * FROM ad WHERE ad.user_id = '$user_id'";
 $adsResult = mysqli_query($link, $query);
 ?>
 
-<h2 class="form-title">User data:</h2>
+<h2 class="form-title">Datos del usuario:</h2>
 <div class="form">
-  <div>Name: <?php echo $user['name']; ?></div>
-  <div>Phone: <?php echo $user['phone']; ?></div>
-  <div>Email: <?php echo $user['email']; ?></div>
+  <div><b>Nombre:</b> <?php echo $user['name']; ?></div>
+  <div><b>Teléfono:</b> <?php echo $user['phone']; ?></div>
+  <div><b>Email:</b> <?php echo $user['email']; ?></div>
 </div>
 
-<h2 class="form-title">User ads:</h2>
+<h2 class="form-title">Avisos del usuario:</h2>
 <ul class="ads-container">
   <div class="ads-list">
   <?php
+  if (mysqli_num_rows($adsResult) == 0) {
+  ?>
+  <b>No creaste ningún aviso todavía. <a href="/sell.php">Creá uno ahora!</a></b>
+  <?php
+  }
   while ($ad = mysqli_fetch_array($adsResult, MYSQLI_ASSOC)) {
   ?>
     <li>
       <a href="<?php echo "/ad.php?id=" . $ad['id'] ?>">
-        <img alt="<?php echo "Image for Ad " . $ad['name']; ?>" src="<?php echo "images/uploaded/" . $ad['image']; ?>" />
+        <div class="image-container"><img alt="<?php echo "Image for Ad " . $ad['name']; ?>" src="<?php echo "images/uploaded/" . $ad['image']; ?>" /></div>
         <div class="ad-container">
           <div class="ad-name"><?php echo $ad['name']; ?></div>
           <div class="ad-price">$<?php echo $ad['price']; ?></div>
           <div class="ad-date"><?php echo $ad['date']; ?></div>
-          <div><?php echo $ad['sold'] ? 'Sold' : 'Not sold'; ?></div>
+          <div><?php echo $ad['sold'] ? 'Vendido' : 'No vendido'; ?></div>
         </div>
       </a>
       <div class="actions">
-        <a class="button" href="/sell.php?id=<?php echo $ad['id']; ?>">Edit</a>
-        <a class="button" href="/deleteAd.php?id=<?php echo $ad['id']; ?>">Delete</a>
+        <a class="button" href="/sell.php?id=<?php echo $ad['id']; ?>">Editar</a>
+        <a class="button" href="/deleteAd.php?id=<?php echo $ad['id']; ?>">Eliminar</a>
         <?php if (!$ad['sold']) { ?>
-        <a class="button" href="/markAdAsSold.php?id=<?php echo $ad['id']; ?>">Mark as sold</a>
+        <a class="button" href="/markAdAsSold.php?id=<?php echo $ad['id']; ?>">Marcar como vendido</a>
         <?php } ?>
       </div>
     </li>

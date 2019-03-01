@@ -17,7 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $hash = password_hash($password, PASSWORD_BCRYPT);
   
   if ($username=='' || $password=='' || $name=='' || $phone=='' || $email=='') {
-    $error = 'Please enter all the required fields.';
+    $error = 'Por favor complete todos los campos requeridos.';
   }
   if (!isset($error)) {
     $query = "SELECT * FROM user WHERE username='$username'";
@@ -26,7 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $count = mysqli_num_rows($userResult);
 
     if ($count == 1) {
-      $error = "Username has already been taken";
+      $error = "El usuario ya está en uso.";
     } else {
       $query = "INSERT INTO user (username, password, name, phone, email) VALUES ('$username', '$hash', '$name', '$phone', '$email')";
       if (mysqli_query($link, $query)) {
@@ -35,26 +35,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION['email'] = $email;
         header("location: profile.php");
       } else {
-        $error = "Error while trying to create user";
+        $error = "Hubo un error al intentar crear el usuario.";
       }
     }
     close($link);
   }
 }
 ?>
-<h2 class="form-title">Register</h2>
+<h2 class="form-title">Registro</h2>
 <form action="" method="post" class="form">
-  <label for="username">Username:<span class="required"> (*)</span></label>
+  <label for="username">Usuario:<span class="required"> (*)</span></label>
   <input type="text" name="username" maxlength="15" required>
-  <label for="password">Password:<span class="required"> (*)</span></label>
+  <label for="password">Contraseña:<span class="required"> (*)</span></label>
   <input type="password" name="password" maxlength="30" required>
-  <label for="name">Name:<span class="required"> (*)</span></label>
+  <label for="name">Nombre:<span class="required"> (*)</span></label>
   <input type="text" name="name" maxlength="30" required>
-  <label for="phone">Phone:<span class="required"> (*)</span></label>
+  <label for="phone">Teléfono:<span class="required"> (*)</span></label>
   <input type="tel" name="phone" maxlength="15" required>
   <label for="email">Email:<span class="required"> (*)</span></label>
-  <input type="email" name="email" maxlength="20" required>
-  <button class="button">Register</button>
+  <input type="email" name="email" maxlength="40" required>
+  <button class="button">Registrarse</button>
   <?php if (isset($error)) { ?>
     <div class="error"><?php echo $error; ?></div>
   <?php } ?>

@@ -52,23 +52,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   if (isset($_POST['email'])) {
     if ($text == '') {
-       $email_error = 'Please enter a text message.';
+       $email_error = 'Por favor complete el mensaje.';
     }
     if (!isset($email_error)) {
       $message = $name . '\r\n' . $text . '\r\n' . $_SESSION['username'] . ' - ' . $date . '\r\n' . $_SESSION['email'];
       $message = wordwrap($message, 70, "\r\n");
       if (!mail($ad_user_email, 'User ' .  $_SESSION['username'] . 'offered in ' . $name, $message)) {
-        $email_error = "Error while trying to send email.";
+        $email_error = "Hubo un error al intentar enviar el email.";
       }
     }
   } else if (isset($_POST['comment'])) {
     if ($text == '') {
-       $comment_error = 'Please enter a text message.';
+       $comment_error = 'Por favor complete el mensaje.';
     }
     if (!isset($comment_error)) {
       $query = "INSERT INTO comment (ad_id, user_id, text, date) VALUES ('$ad_id', '$user_id', '$text', '$date')";
       if (!mysqli_query($link, $query)) {
-        $comment_error = "Error while trying to create comment.";
+        $comment_error = "Hubo un error al intentar crear el mensaje.";
       }
     }
   }
@@ -81,20 +81,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <img alt="<?php echo "Image for Ad " . $name; ?>" src="<?php echo "images/uploaded/" . $image; ?>" />
   </div>
   <div class="ad-details">
-    <div><b>Description:</b> <?php echo $description; ?></div>
-    <div><b>Price:</b> $<?php echo $price; ?></div>
-    <div><b>Category:</b> <?php echo $category; ?></div>
-    <div><b>Subcategory:</b> <?php echo $subcategory; ?></div>
-    <div><b>City:</b> <?php echo $city; ?>, <?php echo $state; ?></div>
-    <div><b>Date posted:</b> <?php echo $date; ?></div>
-    <div><b>Username:</b> <?php echo $ad_user_name; ?></div>
-    <div><b>Phone:</b> <?php echo $ad_user_phone; ?></div>
+    <div><b>Descripción:</b> <?php echo $description; ?></div>
+    <div><b>Precio:</b> $<?php echo $price; ?></div>
+    <div><b>Categoría:</b> <?php echo $category; ?></div>
+    <div><b>Subcategoría:</b> <?php echo $subcategory; ?></div>
+    <div><b>Ciudad:</b> <?php echo $city; ?>, <?php echo $state; ?></div>
+    <div><b>Fecha de creación:</b> <?php echo $date; ?></div>
+    <div><b>Usuario:</b> <?php echo $ad_user_name; ?></div>
+    <div><b>Teléfono:</b> <?php echo $ad_user_phone; ?></div>
     <?php if (!$sold && isset($_SESSION['username']) && $_SESSION['username'] !== $ad_user_username) { ?>
       <form action="" method="post" class="form">
         <input type="hidden" name="email" />
-        <label for="text">Text:<span class="required"> (*)</span></label>
-        <textarea type="text" name="text" rows="5" cols="30" maxlength="200" required placeholder="Make an offer"></textarea>
-        <button class="button">Submit</button>
+        <label for="text">Mensaje de oferta:<span class="required"> (*)</span></label>
+        <textarea type="text" name="text" rows="5" cols="30" maxlength="200" required placeholder="Oferta"></textarea>
+        <button class="button">Enviar</button>
         <?php if (isset($email_error)) { ?>
           <div class="error"><?php echo $email_error; ?></div>
         <?php } ?>
@@ -102,7 +102,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <?php } ?>
   </div>
 </div>
-<h2 class="comments-title">Comments</h2>
+<h2 class="comments-title">Comentarios</h2>
 <div class="comments-container">
   <ul class="comments-list">
     <?php
@@ -111,6 +111,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $commentsQuery = "SELECT comment.*, user.name AS user_name"
       . " FROM comment INNER JOIN user ON comment.user_id=user.id WHERE ad_id=" . $ad_id;
     $commentsResult = mysqli_query($link, $commentsQuery);
+    if (mysqli_num_rows($commentsResult) == 0) {
+    ?>
+    <b>No hay comentarios en este aviso.</b>
+    <?php
+    }
     while ($comment = mysqli_fetch_array($commentsResult, MYSQLI_ASSOC)) {
     ?>
       <li>
@@ -128,9 +133,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <?php if (isset($_SESSION['username'])) { ?>
     <form action="" method="post" class="form">
       <input type="hidden" name="comment" />
-      <label for="text">Text:<span class="required"> (*)</span></label>
-      <textarea type="text" name="text" rows="5" cols="30" maxlength="200" required placeholder="Send a comment"></textarea>
-      <button class="button">Submit</button>
+      <label for="text">Mensaje de comentario:<span class="required"> (*)</span></label>
+      <textarea type="text" name="text" rows="5" cols="30" maxlength="200" required placeholder="Comentario"></textarea>
+      <button class="button">Enviar</button>
       <?php if (isset($comment_error)) { ?>
         <div class="error"><?php echo $comment_error; ?></div>
       <?php } ?>

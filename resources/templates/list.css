@@ -3,8 +3,8 @@
 }
 
 .filters {
-  border: 1px solid var(--primary-color);
-  border-radius: 10px;
+  background-color: #FFF;
+  border-radius: 5px;
   width: 20%;
   padding: 40px;
   margin: 20px auto;
@@ -18,8 +18,8 @@
 }
 
 .ads-container {
-  border: 1px solid var(--primary-color);
-  border-radius: 10px;
+  background-color: #FFF;
+  border-radius: 5px;
   width: 60%;
   padding: 40px;
   margin: 20px auto;
@@ -39,30 +39,26 @@
   display: flex;
   justify-content: space-around;
   padding: 10px;
-  border: 1px solid var(--primary-color);
   border-radius: 10px;
+  text-decoration: none;
+  background-color: #ebebeb;
 }
 
-.ads-list > li > a > img {
+.ads-list > li > a > div > img {
   height: 100px;
+}
+
+.ads-list > li > a > div {
+  flex-basis: 50%;
+  color: black;
+  display: flex;
+  justify-content: center;
 }
 
 .ad-container {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-}
-
-/* .ads-container a {
-  color: black;
-} */
-
-/* .ads-container a:visited {
-  color: grey;
-} */
-
-.ads-container a:hover {
-  background-color: green;
 }
 
 .ads-pagination {
@@ -72,6 +68,10 @@
 
 .ads-pagination > * {
   margin-right: 10px;
+}
+
+.ad-delete-admin {
+  text-align: right;
 }
 
 .ad-delete-admin > a {
