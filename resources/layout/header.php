@@ -32,7 +32,7 @@
     <a href="list.php">Listado</a>
     <?php if (isset($_SESSION['username'])) { ?>
       <a href="sell.php">Vender</a>
-      <a href="profile.php">Perfil</a>
+      <a href="profile.php">Perfil (<?php echo $_SESSION['username']; ?>)</a>
       <a href="logout.php">Logout</a>
     <?php } else { ?>
       <a href="register.php">Registro</a>

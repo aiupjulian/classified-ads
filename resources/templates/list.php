@@ -4,7 +4,8 @@ $link;
 connect($link);
 $conditions = array();
 if (!empty($_GET["name"])) {
-  $conditions[] = "ad.name LIKE '%" . mysqli_real_escape_string($link, $_GET["name"]) . "%'";
+  $conditions[] = "(ad.name LIKE '%" . mysqli_real_escape_string($link, $_GET["name"]) . "%'"
+    . " OR ad.description LIKE '%" . mysqli_real_escape_string($link, $_GET["name"]) . "%')";
 }
 if (!empty($_GET["subcategory"])) {
   $conditions[] = "subcategory_id=" . mysqli_real_escape_string($link, $_GET["subcategory"]);
@@ -41,13 +42,13 @@ $adsResult = mysqli_query($link, $query);
 ?>
 <h2 class="form-title">Listado</h2>
 <div class="list-container">
-  <form action="" method="get" class="filters">
-    <label for="name">Nombre:</label>
+  <form action="" method="get" class="filters" autocomplete="off">
+    <label for="name">Nombre del aviso:</label>
     <input type="text" name="name" maxlength="15" value="<?php echo isset($_GET['name']) ? $_GET['name'] : '' ?>">
     <fieldset>
       <legend>Precio:</legend>
-      <input type="number" name="price1" maxlength="11" placeholder="From" value="<?php echo isset($_GET['price1']) ? $_GET['price1'] : '' ?>">
-      <input type="number" name="price2" maxlength="11" placeholder="To" value="<?php echo isset($_GET['price2']) ? $_GET['price2'] : '' ?>">
+      <input type="number" name="price1" maxlength="11" placeholder="Desde" value="<?php echo isset($_GET['price1']) ? $_GET['price1'] : '' ?>">
+      <input type="number" name="price2" maxlength="11" placeholder="Hasta" value="<?php echo isset($_GET['price2']) ? $_GET['price2'] : '' ?>">
     </fieldset>
     <label for="city">Ciudad:</label>
     <select name="city">
@@ -104,6 +105,11 @@ $adsResult = mysqli_query($link, $query);
   <ul class="ads-container">
     <div class="ads-list">
     <?php
+    if ($count == 0) {
+    ?>
+    <div style="text-align: center;">No hay avisos para mostrar con esos filtros.</div>
+    <?php
+    }
     while ($ad = mysqli_fetch_array($adsResult, MYSQLI_ASSOC)) {
     ?>
       <li>

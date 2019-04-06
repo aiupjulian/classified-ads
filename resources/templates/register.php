@@ -1,3 +1,13 @@
+<style>
+input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+ 
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+</style>
 <?php
 unset($error);
 if(isset($_SESSION['username'])) {
@@ -51,7 +61,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <label for="name">Nombre:<span class="required"> (*)</span></label>
   <input type="text" name="name" maxlength="30" required>
   <label for="phone">Teléfono:<span class="required"> (*)</span></label>
-  <input type="tel" name="phone" maxlength="15" required>
+  <input type="number" name="phone" maxlength="15" required>
   <label for="email">Email:<span class="required"> (*)</span></label>
   <input type="email" name="email" maxlength="40" required>
   <button class="button">Registrarse</button>
