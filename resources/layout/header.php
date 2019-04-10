@@ -19,7 +19,12 @@
   </style>
 </head>
 <body>
-<?php session_start(); ?>
+<?php
+if(session_id() == ''){
+  //session has not started
+  session_start();
+}
+?>
 <div class="header">
   <div class="header-section">
     <h1><a href="index.php">Classified Ads</a></h1>

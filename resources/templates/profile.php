@@ -1,7 +1,4 @@
 <?php
-if (!isset($_SESSION['username'])) {
-  header("location: login.php");
-}
 require_once(LIBRARY_PATH . "/databaseFunctions.php");
 $link;
 connect($link);

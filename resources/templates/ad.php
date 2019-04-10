@@ -67,8 +67,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $mail->Port = 587; // Which port to use, 587 is the default port for TLS security.
         $mail->SMTPSecure = 'tls'; // Which security method to use. TLS is most secure.
         $mail->SMTPAuth = true; // Whether you need to login. This is almost always required.
-        $mail->Username = ""; // Your Gmail address.
-        $mail->Password = ""; // Your Gmail login password or App Specific Password.
+        $mail->Username = "classifiedadsml@gmail.com"; // Your Gmail address.
+        $mail->Password = "Lima-Limon505"; // Your Gmail login password or App Specific Password.
 
         $mail->setFrom('classifiedadsml@gmail.com', 'Classified Ads'); // Set the sender of the message.
         $mail->addAddress($ad_user_email, $ad_user_name); // Set the recipient of the message.

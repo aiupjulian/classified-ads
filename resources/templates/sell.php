@@ -2,9 +2,6 @@
 require_once(realpath(dirname(__FILE__) . "/../config.php"));
 require_once(LIBRARY_PATH . "/databaseFunctions.php");
 unset($error);
-if (!isset($_SESSION['username'])) {
-  header('location: index.php');
-}
 
 // edit ad
 if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET["id"])) {
@@ -62,43 +59,50 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   // user_id from session
   $user_id = $_SESSION['id'];
 
-  if ($name=='' || $description=='' || $price=='' || $city_id=='' || $subcategory_id=='' || $_FILES['image']['size']==0) {
+  if ($name=='' || $description=='' || $price=='' || $city_id=='' || $subcategory_id=='') {
     $error = 'Por favor complete todos los campos requeridos.';
   }
 
   if (!isset($error)) {
-    $file_name = $_FILES['image']['name'];
-    $file_size = $_FILES['image']['size'];
-    $file_tmp = $_FILES['image']['tmp_name'];
-    $file_error = $_FILES['image']['error'];
-    $exploded_file_name = explode('.', $file_name);
-    $file_ext = strtolower(end($exploded_file_name));
+    if ($_FILES['image']['name']) {
+      $file_name = $_FILES['image']['name'];
+      $file_size = $_FILES['image']['size'];
+      $file_tmp = $_FILES['image']['tmp_name'];
+      $file_error = $_FILES['image']['error'];
+      $exploded_file_name = explode('.', $file_name);
+      $file_ext = strtolower(end($exploded_file_name));
 
-    $extensions = array('jpeg', 'jpg', 'png');
+      $extensions = array('jpeg', 'jpg', 'png');
 
-    if (in_array($file_ext, $extensions) === false) {
-      $error = 'Por favor seleccione un archivo con extensión JPEG o PNG.';
-    } else if ($file_error === 2 || $file_size > 2000000) {
-      $error = 'El archivo debe pesar menos de 2 MB.';
+      if (in_array($file_ext, $extensions) === false) {
+        $error = 'Por favor seleccione un archivo con extensión JPEG o PNG.';
+      } else if ($file_error === 2 || $file_size > 2000000) {
+        $error = 'El archivo debe pesar menos de 2 MB.';
+      }
     }
 
     if (!isset($error)) {
       global $config;
-      $image_path = sha1_file($file_tmp) . $date . $date_array['seconds'] . "." . $file_ext;
-      $path_to_upload = $config["paths"]["images"]["uploads"] . "/" . $image_path;
-      if (move_uploaded_file($file_tmp, $path_to_upload)) {
+      if (isset($file_name)) {
+        $image_path = sha1_file($file_tmp) . $date . $date_array['seconds'] . "." . $file_ext;
+        $path_to_upload = $config["paths"]["images"]["uploads"] . "/" . $image_path;
+        $file_upload_result = move_uploaded_file($file_tmp, $path_to_upload);
+      }
+      if (!isset($file_name) || $file_upload_result) {
         if (isset($_GET["id"])) {
           $ad_id = mysqli_real_escape_string($link, $_GET['id']);
-          $query = "UPDATE ad SET name='$name', description='$description', price='$price', image='$image_path', city_id='$city_id', subcategory_id='$subcategory_id'"
-            . " WHERE ad.id='$ad_id'";
-            if (mysqli_query($link, $query)) {
-              header("location: ad.php?id=" . $ad_id);
-            } else {
-              $error = "Hubo un error al intentar actualizar el aviso.";
-            }
+          $query = "UPDATE ad SET name='$name', description='$description', price='$price', city_id='$city_id', subcategory_id='$subcategory_id'";
+          if (isset($image_path)) $query .= ", image='$image_path'";
+          $query .= " WHERE ad.id='$ad_id'";
+          if (mysqli_query($link, $query)) {
+            header("location: ad.php?id=" . $ad_id);
+          } else {
+            $error = "Hubo un error al intentar actualizar el aviso.";
+          }
         } else {
+          if (!isset($image_path)) $image_path = "nopic.gif";
           $query = "INSERT INTO ad (name, description, price, date, user_id, image, city_id, subcategory_id)"
-            . "VALUES ('$name', '$description', '$price', '$date', '$user_id', '$image_path', '$city_id', '$subcategory_id')";
+            . " VALUES ('$name', '$description', '$price', '$date', '$user_id', '$image_path', '$city_id', '$subcategory_id')";
           if (mysqli_query($link, $query)) {
             $ad_id = mysqli_insert_id($link);
             header("location: ad.php?id=" . $ad_id);
@@ -106,7 +110,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $error = "Hubo un error al intentar crear el aviso.";
           }
         }
-      } else {
+      } else if (!$file_upload_result) {
         $error = 'Hubo un error al intentar subir el archivo.';
       }
     }
@@ -114,7 +118,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   close($link);
 }
 ?>
-<h2 class="form-title">Crear Aviso</h2>
+<h2 class="form-title"><?php if (isset($_GET["id"])) { echo "Editar"; } else { echo "Crear"; } ?> Aviso</h2>
 <form action="" method="post" class="form" enctype="multipart/form-data">
   <label for="name">Nombre del aviso:<span class="required"> (*)</span></label>
   <input type="text" name="name" maxlength="15" required <?php if(isset($name)) echo "value='$name'"; ?>>
@@ -172,9 +176,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     close($link);
     ?>
   </select>
-  <label for="image">Imágen:<span class="required"> (*)</span></label>
+  <label for="image">Imágen:<span class="required"></span></label>
   <input type="hidden" name="MAX_FILE_SIZE" value="2000000">
-  <input type="file" name="image" accept="image/png, image/jpeg" required>
+  <input type="file" name="image" accept="image/png, image/jpeg">
   <button class="button"><?php echo (isset($_GET["id"]) ? 'Editar' : 'Crear'); ?></button>
   <?php if (isset($error)) { ?>
     <div class="error"><?php echo $error; ?></div>
